@@ -19,6 +19,10 @@ A powerful, type-safe validation library for Angular v20+ applications featuring
 - 🌐 **Universal** - SSR compatible
 - 🎨 **Developer Friendly** - Clear error messages and TypeScript intellisense
 
+## 📋 Available Validators
+
+- 🔍 [Contains](#-contains-validation) - Validates string contains substring
+
 ## 📦 Installation
 
 ```bash
@@ -39,7 +43,7 @@ pnpm add ng-valid
 ```typescript
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { containsValidationVal } from 'ng-valid';
+import { containsVal } from 'ng-valid';
 
 @Component({
   selector: 'app-example',
@@ -53,7 +57,7 @@ import { containsValidationVal } from 'ng-valid';
 })
 export class ExampleComponent {
   emailControl = new FormControl('', [
-    containsValidationVal('@', { ignoreCase: false })
+    containsVal('@', { ignoreCase: false })
   ]);
 }
 ```
@@ -62,11 +66,11 @@ export class ExampleComponent {
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ContainsValidationDirective } from 'ng-valid';
+import { ContainsDirective } from 'ng-valid';
 
 @Component({
   selector: 'app-example',
-  imports: [FormsModule, ContainsValidationDirective],
+  imports: [FormsModule, ContainsDirective],
   template: `
     <form #form="ngForm">
       <input
@@ -94,28 +98,15 @@ export class ExampleComponent {
 
 Validates that a string contains a specific substring with customizable options.
 
-#### **Core Function**
-```typescript
-import { containsValidation } from 'ng-valid';
-
-const isValid = containsValidation('hello@world.com', '@'); // true
-const isValidIgnoreCase = containsValidation('HELLO@WORLD.COM', '@', { 
-  ignoreCase: true 
-}); // true
-const hasMultiple = containsValidation('@@test@@', '@', { 
-  minOccurrences: 2 
-}); // true
-```
-
 #### **Reactive Forms**
 ```typescript
-import { containsValidationVal } from 'ng-valid';
+import { containsVal } from 'ng-valid';
 
 // Basic usage
-const control = new FormControl('', containsValidationVal('@'));
+const control = new FormControl('', containsVal('@'));
 
 // With options
-const advancedControl = new FormControl('', containsValidationVal('@', {
+const advancedControl = new FormControl('', containsVal('@', {
   ignoreCase: true,
   minOccurrences: 1
 }));

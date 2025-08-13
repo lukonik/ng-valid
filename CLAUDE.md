@@ -67,58 +67,50 @@ I am a dedicated Angular developer who thrives on leveraging the absolute latest
 When generating validators, follow this exact implementation structure:
 
 ### File Structure
-For each validator (e.g., "email-validation"):
+For each validator (e.g., "contains"):
 ```
-packages/ng-valid/src/lib/email-validation/
-├── email-validation.ts           // Core validation function
-├── email-validation-val.ts       // Angular validator function
-├── email-validation-val.directive.ts // Angular directive
-├── email-validation.spec.ts      // Unit tests for core function
-├── email-validation-val.spec.ts  // Unit tests for validator function
-└── email-validation-val.directive.spec.ts // Unit tests for directive
+packages/ng-valid/src/lib/contains/
+├── contains-val.ts               // Angular validator function with core logic
+├── contains-val.directive.ts     // Angular directive  
+├── contains-val.spec.ts          // Unit tests for validator function
+└── contains-val.directive.spec.ts // Unit tests for directive
 ```
 
 ### Implementation Requirements
 
-1. **Core Validation Function** (`[validatorName].ts`):
-   - Export pure function using camelCase naming (e.g., `emailValidation`)
-   - Contains business logic for validation
-   - Returns boolean or validation result object
-   - No Angular dependencies
-
-2. **Angular Validator Function** (`[validatorName]-val.ts`):
-   - Export Angular ValidatorFn using camelCase + "Val" suffix (e.g., `emailValidationVal`)
-   - Uses the core validation function internally
+1. **Angular Validator Function** (`[validatorName]-val.ts`):
+   - Export Angular ValidatorFn using camelCase + "Val" suffix (e.g., `containsVal`)
+   - Contains ALL validation logic directly (no separate core function)
    - Returns `ValidationErrors | null`
    - Follows Angular forms validation patterns
+   - Include comprehensive JSDoc documentation
 
-3. **Angular Directive** (`[validatorName]-val.directive.ts`):
+2. **Angular Directive** (`[validatorName]-val.directive.ts`):
    - Implements Angular `Validator` interface
    - Uses standalone directive pattern (Angular v20+)
    - Reference: https://angular.dev/guide/forms/form-validation#example-6
    - Provides template-driven form validation
    - Uses the validator function internally
 
-4. **Public API Exports**:
+3. **Public API Exports**:
    - Export validator function and directive in `packages/ng-valid/src/index.ts`
    - Make all public APIs available for consumers
 
-5. **Comprehensive Testing**:
-   - Unit tests for core validation function
+4. **Comprehensive Testing**:
    - Unit tests for Angular validator function  
    - Unit tests for Angular directive
    - Test both valid and invalid scenarios
    - Test edge cases and error conditions
 
 ### Naming Conventions
-- **Directory**: Use kebab-case (dash-separated) naming
-- **Files**: Use kebab-case for filenames
-- **Functions**: Use camelCase for function names
-- **Validator suffix**: Add "Val" suffix to Angular validator functions
-- **Directive selector**: Use kebab-case with library prefix
+- **Directory**: Use kebab-case, validator name only (e.g., `contains`, `email`, `credit-card`)
+- **Files**: Use kebab-case with `-val` suffix
+- **Functions**: Use camelCase with "Val" suffix (e.g., `containsVal`, `emailVal`)
+- **Directive selector**: Use kebab-case with library prefix (`ngValid[ValidatorName]`)
 
 ### Implementation Notes
-- **Do NOT commit automatically** - I will manually commit validators
+- **Create feature branch** for each new validator (e.g., `feat/email-validator`)
+- **Create Pull Request** after implementation instead of direct commits
 - Follow Angular v20+ best practices (standalone components, signals, etc.)
 - Use TypeScript strict typing
 - Reference validator.js library for validation logic patterns
@@ -129,19 +121,30 @@ packages/ng-valid/src/lib/email-validation/
 **CRITICAL**: After implementing each new validator, ALWAYS update README.md:
 
 ### Required Updates for Each Validator
-1. **Add new validator section** in "📚 Available Validators" section
-2. **Include validator emoji** and descriptive title
-3. **Provide complete documentation** with:
+1. **Add validator to bullet list** near the top with emoji and link
+2. **Add new validator section** in "📚 Available Validators" section
+3. **Include validator emoji** and descriptive title
+4. **Provide complete documentation** with:
    - Brief description of what it validates
-   - Core function usage examples
+   - Angular ValidatorFn usage examples (no core function examples)
    - Reactive forms examples
    - Template-driven forms examples
    - Options table (if applicable)
    - Error object structure
-4. **Follow existing format** exactly as shown in Contains Validation section
-5. **Use appropriate emojis** for visual consistency
-6. **Include TypeScript examples** with proper imports
-7. **Show both basic and advanced usage** patterns
+5. **Follow existing format** exactly as shown in Contains Validation section
+6. **Use appropriate emojis** for visual consistency
+7. **Include TypeScript examples** with proper imports
+8. **Show both basic and advanced usage** patterns
+
+### Validator List Maintenance
+Update the validator bullet list after the features section:
+```markdown
+## 📋 Available Validators
+
+- 🔍 [Contains](#-contains-validation) - Validates string contains substring
+- 📧 [Email](#-email-validation) - Validates email format
+- 🔐 [Password](#-password-validation) - Validates password strength
+```
 
 ### Documentation Template for New Validators
 ```markdown
@@ -149,23 +152,29 @@ packages/ng-valid/src/lib/email-validation/
 
 [Brief description of what it validates and key features]
 
-#### **Core Function**
-```typescript
-import { [validatorName] } from 'ng-valid';
-
-const isValid = [validatorName]('example', options); // true/false
-```
-
 #### **Reactive Forms**
 ```typescript
 import { [validatorName]Val } from 'ng-valid';
 
-const control = new FormControl('', [validatorName]Val(options));
+// Basic usage
+const control = new FormControl('', [validatorName]Val());
+
+// With options
+const controlWithOptions = new FormControl('', [validatorName]Val(options));
 ```
 
 #### **Template-Driven Forms**
 ```html
-<input ngValid[ValidatorName]="value" [(ngModel)]="model" name="field">
+<!-- Basic usage -->
+<input ngValid[ValidatorName] [(ngModel)]="model" name="field">
+
+<!-- With options -->
+<input 
+  ngValid[ValidatorName]
+  [ngValid[ValidatorName]Option]="value"
+  [(ngModel)]="model" 
+  name="field"
+>
 ```
 
 #### **Options** (if applicable)
@@ -176,7 +185,7 @@ const control = new FormControl('', [validatorName]Val(options));
 ```typescript
 {
   [validatorErrorKey]: {
-    // error structure
+    // error structure with context
   }
 }
 ```
