@@ -109,13 +109,39 @@ packages/ng-valid/src/lib/contains/
 - **Directive selector**: Use kebab-case with library prefix (`ngValid[ValidatorName]`)
 
 ### Implementation Notes
-- **Create feature branch** for each new validator (e.g., `feat/email-validator`)
-- **Create Pull Request** after implementation instead of direct commits
+- **ALWAYS use Pull Request workflow** for ANY changes (validators, docs, configs, etc.)
+- **Create feature branch** for each change (e.g., `feat/validator-name`, `docs/readme-update`, `fix/bug-name`)
+- **Never commit directly to main** - all changes must go through PR review
 - Follow Angular v20+ best practices (standalone components, signals, etc.)
 - Use TypeScript strict typing
 - Reference validator.js library for validation logic patterns
 - Keep validators composable and focused on single responsibility
 - Ensure all validators work with both reactive and template-driven forms
+
+## Pull Request Workflow
+**CRITICAL**: Use PR workflow for ALL changes, not just validators:
+
+### Branch Naming Convention
+- **Validators**: `feat/validator-name` (e.g., `feat/email`, `feat/credit-card`)
+- **Documentation**: `docs/description` (e.g., `docs/update-readme`, `docs/add-examples`)
+- **Bug fixes**: `fix/description` (e.g., `fix/validation-error`, `fix/build-issue`)
+- **Refactoring**: `refactor/description` (e.g., `refactor/simplify-pattern`)
+- **Configuration**: `chore/description` (e.g., `chore/update-deps`, `chore/jest-config`)
+
+### Required PR Process
+1. **Create feature branch**: `git checkout -b feat/feature-name`
+2. **Implement changes** with proper testing
+3. **Commit with conventional format**: `feat(scope): description`
+4. **Push branch**: `git push origin feat/feature-name`
+5. **Create Pull Request** with descriptive title and body
+6. **Wait for review** before merging to main
+
+### PR Title Format
+Use conventional commit format:
+- `feat(validators): add email validator`
+- `docs(readme): update installation instructions`
+- `fix(blacklist): resolve regex escaping issue`
+- `refactor(pattern): simplify file structure`
 
 ## README.md Maintenance
 **CRITICAL**: After implementing each new validator, ALWAYS update README.md:
