@@ -11,14 +11,14 @@ export interface BlacklistOptions {
 /**
  * Angular validator function that removes blacklisted characters from input
  * Based on validator.js blacklist implementation
- * 
+ *
  * Note: This validator transforms the input value by removing blacklisted characters.
  * It does NOT return validation errors - it modifies the control value instead.
- * 
+ *
  * @param chars Characters to remove from the input (blacklisted characters)
  * @param options Validation options
  * @returns ValidatorFn that removes blacklisted characters from input
- * 
+ *
  * @example
  * ```typescript
  * // Remove special characters from input
@@ -26,10 +26,7 @@ export interface BlacklistOptions {
  * control.setValue('hello@world!'); // becomes 'helloworld'
  * ```
  */
-export function blacklistVal(
-  chars: string,
-  options: BlacklistOptions = {}
-): ValidatorFn {
+export function blacklistVal(chars: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     // Return null if no value
     if (!control.value && control.value !== 0) {
@@ -38,7 +35,7 @@ export function blacklistVal(
 
     // Convert value to string
     const value = String(control.value);
-    
+
     if (!chars) {
       return null;
     }
@@ -47,10 +44,10 @@ export function blacklistVal(
     // Escape special regex characters in the chars string
     const escapedChars = chars.replace(/[[\]{}()*+?.\\^$|]/g, '\\$&');
     const blacklistRegex = new RegExp(`[${escapedChars}]+`, 'g');
-    
+
     // Remove blacklisted characters
     const cleanedValue = value.replace(blacklistRegex, '');
-    
+
     // Update the control value if it changed
     if (cleanedValue !== value) {
       // Use setTimeout to avoid "ExpressionChangedAfterItHasBeenCheckedError"

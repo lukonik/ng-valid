@@ -1,15 +1,20 @@
 import { Directive, Input, forwardRef } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
 import { containsValidationVal } from './contains-validation-val.js';
 
 /**
  * Angular directive for contains validation in template-driven forms
- * 
+ *
  * @example
  * ```html
- * <input 
- *   type="text" 
- *   ngModel 
+ * <input
+ *   type="text"
+ *   ngModel
  *   ngValidContains="@"
  *   [ngValidContainsIgnoreCase]="true"
  *   [ngValidContainsMinOccurrences]="1"
@@ -17,24 +22,25 @@ import { containsValidationVal } from './contains-validation-val.js';
  * ```
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[ngValidContains]',
   providers: [
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => ContainsValidationDirective),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class ContainsValidationDirective implements Validator {
   /** The element that the input value must contain */
-  @Input('ngValidContains') element: string = '';
+  @Input('ngValidContains') element = '';
 
   /** Whether to ignore case when checking if string contains the element */
-  @Input('ngValidContainsIgnoreCase') ignoreCase: boolean = false;
+  @Input('ngValidContainsIgnoreCase') ignoreCase = false;
 
   /** Minimum number of occurrences required */
-  @Input('ngValidContainsMinOccurrences') minOccurrences: number = 1;
+  @Input('ngValidContainsMinOccurrences') minOccurrences = 1;
 
   validate(control: AbstractControl): ValidationErrors | null {
     if (!this.element) {
@@ -43,7 +49,7 @@ export class ContainsValidationDirective implements Validator {
 
     const validator = containsValidationVal(this.element, {
       ignoreCase: this.ignoreCase,
-      minOccurrences: this.minOccurrences
+      minOccurrences: this.minOccurrences,
     });
 
     return validator(control);

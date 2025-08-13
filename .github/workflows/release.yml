@@ -1,62 +1,22 @@
-name: 🚀 Release & Deploy
+name: 🚀 Release
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version (patch, minor, major, or specific version)'
-        required: false
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
-          - prerelease
 
-concurrency:
-  group: release
-  cancel-in-progress: false
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
 
 jobs:
-  changes:
-    name: 🔍 Detect Changes
-    runs-on: ubuntu-latest
-    outputs:
-      has-changes: ${{ steps.changes.outputs.has-changes }}
-      
-    steps:
-      - name: 📦 Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🔍 Check for Relevant Changes
-        id: changes
-        run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "has-changes=true" >> $GITHUB_OUTPUT
-            echo "Manual release triggered"
-          else
-            # Check if there are changes in packages/ or other relevant files
-            if git diff --name-only ${{ github.event.before }}..${{ github.sha }} | grep -E "(packages/|package\.json|nx\.json)"; then
-              echo "has-changes=true" >> $GITHUB_OUTPUT
-              echo "Package changes detected"
-            else
-              echo "has-changes=false" >> $GITHUB_OUTPUT
-              echo "No package changes detected"
-            fi
-          fi
-
   release:
-    name: 🏗️ Build & Release
+    name: 🚀 Semantic Release
     runs-on: ubuntu-latest
-    needs: changes
-    if: needs.changes.outputs.has-changes == 'true'
-    
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
     steps:
       - name: 📦 Checkout Repository
         uses: actions/checkout@v4
@@ -67,118 +27,66 @@ jobs:
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
           cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
 
       - name: 📥 Install Dependencies
         run: npm ci
 
-      - name: 🏗️ Build All Packages
-        run: npx nx run-many -t build
+      - name: 🏗️ Build Library
+        run: npm run ng build ngx-valid --configuration production
 
-      - name: 🧪 Run All Tests
-        run: npx nx run-many -t test
+      - name: 🧪 Run Tests
+        run: npm run test-ci
 
-      - name: 🔍 Type Check All
-        run: npx nx run-many -t typecheck
-
-      - name: 📊 Generate Release Plan
+      - name: 🔍 Run Lint (if available)
         run: |
-          echo "## 📋 Release Plan" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            VERSION_ARG="${{ github.event.inputs.version }}"
-            if [[ "$VERSION_ARG" =~ ^[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then
-              echo "🎯 **Target Version**: $VERSION_ARG (specific)" >> $GITHUB_STEP_SUMMARY
-              npx nx release --version="$VERSION_ARG" --dry-run
-            else
-              echo "🎯 **Target Version**: $VERSION_ARG bump" >> $GITHUB_STEP_SUMMARY
-              npx nx release --version="$VERSION_ARG" --dry-run
-            fi
+          if npm run ng lint --help >/dev/null 2>&1; then
+            npm run ng lint ngx-valid
           else
-            echo "🎯 **Target Version**: Auto-determined from commits" >> $GITHUB_STEP_SUMMARY
-            npx nx release --dry-run
+            echo "No lint configured, skipping..."
           fi
+        continue-on-error: true
 
-      - name: 📝 Create Release
+      - name: 📊 Verify Package Structure
+        run: |
+          echo "📦 Checking build output..."
+          ls -la dist/ngx-valid/
+
+          echo "📋 Package.json content:"
+          cat dist/ngx-valid/package.json
+
+          echo "🔍 Public API exports:"
+          cat dist/ngx-valid/public-api.d.ts
+
+      - name: 🚀 Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 24.0.0
+          extra_plugins: |
+            @semantic-release/changelog@6.0.3
+            @semantic-release/git@10.0.1
+            @semantic-release/github@10.0.7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          # Configure git
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Create release with Nx
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            VERSION_ARG="${{ github.event.inputs.version }}"
-            if [[ "$VERSION_ARG" =~ ^[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then
-              npx nx release --version="$VERSION_ARG"
-            else
-              npx nx release --version="$VERSION_ARG"
-            fi
-          else
-            npx nx release
-          fi
 
-      - name: 📦 Publish to NPM
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          # Publish packages
-          npx nx release publish
+      - name: 📊 Upload Coverage to Codecov
+        if: success()
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage/ngx-valid/lcov.info
+          flags: unittests
+          name: ngx-valid-coverage
+        continue-on-error: true
 
       - name: 🎉 Release Summary
         run: |
           echo "## 🎉 Release Complete!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Build**: Success" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **Tests**: Passed" >> $GITHUB_STEP_SUMMARY  
-          echo "✅ **Type Check**: Valid" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **Release**: Created" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **NPM**: Published" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Tests**: Passed" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Semantic Release**: Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "🔗 **NPM Package**: https://www.npmjs.com/package/ngx-valid" >> $GITHUB_STEP_SUMMARY
           echo "📦 **GitHub Releases**: ${{ github.server_url }}/${{ github.repository }}/releases" >> $GITHUB_STEP_SUMMARY
-
-  notify:
-    name: 📢 Notify Release
-    runs-on: ubuntu-latest
-    needs: [release]
-    if: always() && needs.release.result == 'success'
-    
-    steps:
-      - name: 🎊 Success Notification
-        run: |
-          echo "🎉 ngx-valid has been successfully released!"
-          echo "Check the package at: https://www.npmjs.com/package/ngx-valid"
-
-  cleanup:
-    name: 🧹 Cleanup
-    runs-on: ubuntu-latest
-    needs: [changes, release]
-    if: always()
-    
-    steps:
-      - name: 📋 Workflow Summary
-        run: |
-          echo "## 📊 Release Workflow Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          
-          if [[ "${{ needs.changes.outputs.has-changes }}" == "true" ]]; then
-            echo "🔄 **Changes Detected**: Yes" >> $GITHUB_STEP_SUMMARY
-            
-            if [[ "${{ needs.release.result }}" == "success" ]]; then
-              echo "🚀 **Release Status**: Success" >> $GITHUB_STEP_SUMMARY
-            elif [[ "${{ needs.release.result }}" == "failure" ]]; then
-              echo "❌ **Release Status**: Failed" >> $GITHUB_STEP_SUMMARY
-            else
-              echo "⏭️ **Release Status**: Skipped" >> $GITHUB_STEP_SUMMARY
-            fi
-          else
-            echo "📝 **Changes Detected**: No package changes" >> $GITHUB_STEP_SUMMARY
-            echo "⏭️ **Release Status**: Skipped (no changes)" >> $GITHUB_STEP_SUMMARY
-          fi
