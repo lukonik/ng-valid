@@ -61,6 +61,69 @@ I am a dedicated Angular developer who thrives on leveraging the absolute latest
 - Export all public APIs through `packages/ng-valid/src/index.ts`
 - Keep validators focused and composable
 - Follow Angular style guide: https://angular.dev/style-guide
+- Reference https://github.com/validatorjs/validator.js for validation logic implementation
+
+## Validator Implementation Pattern
+When generating validators, follow this exact implementation structure:
+
+### File Structure
+For each validator (e.g., "email-validation"):
+```
+packages/ng-valid/src/lib/email-validation/
+├── email-validation.ts           // Core validation function
+├── email-validation-val.ts       // Angular validator function
+├── email-validation-val.directive.ts // Angular directive
+├── email-validation.spec.ts      // Unit tests for core function
+├── email-validation-val.spec.ts  // Unit tests for validator function
+└── email-validation-val.directive.spec.ts // Unit tests for directive
+```
+
+### Implementation Requirements
+
+1. **Core Validation Function** (`[validatorName].ts`):
+   - Export pure function using camelCase naming (e.g., `emailValidation`)
+   - Contains business logic for validation
+   - Returns boolean or validation result object
+   - No Angular dependencies
+
+2. **Angular Validator Function** (`[validatorName]-val.ts`):
+   - Export Angular ValidatorFn using camelCase + "Val" suffix (e.g., `emailValidationVal`)
+   - Uses the core validation function internally
+   - Returns `ValidationErrors | null`
+   - Follows Angular forms validation patterns
+
+3. **Angular Directive** (`[validatorName]-val.directive.ts`):
+   - Implements Angular `Validator` interface
+   - Uses standalone directive pattern (Angular v20+)
+   - Reference: https://angular.dev/guide/forms/form-validation#example-6
+   - Provides template-driven form validation
+   - Uses the validator function internally
+
+4. **Public API Exports**:
+   - Export validator function and directive in `packages/ng-valid/src/index.ts`
+   - Make all public APIs available for consumers
+
+5. **Comprehensive Testing**:
+   - Unit tests for core validation function
+   - Unit tests for Angular validator function  
+   - Unit tests for Angular directive
+   - Test both valid and invalid scenarios
+   - Test edge cases and error conditions
+
+### Naming Conventions
+- **Directory**: Use kebab-case (dash-separated) naming
+- **Files**: Use kebab-case for filenames
+- **Functions**: Use camelCase for function names
+- **Validator suffix**: Add "Val" suffix to Angular validator functions
+- **Directive selector**: Use kebab-case with library prefix
+
+### Implementation Notes
+- **Do NOT commit automatically** - I will manually commit validators
+- Follow Angular v20+ best practices (standalone components, signals, etc.)
+- Use TypeScript strict typing
+- Reference validator.js library for validation logic patterns
+- Keep validators composable and focused on single responsibility
+- Ensure all validators work with both reactive and template-driven forms
 
 ## Resources
 - Components: https://angular.dev/essentials/components
