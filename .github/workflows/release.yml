@@ -34,7 +34,7 @@ jobs:
         run: npm ci
 
       - name: 🏗️ Build Library
-        run: npm run ng build ngx-valid --configuration production
+        run: npm run build
 
       - name: 🧪 Run Tests
         run: npm run test-ci
