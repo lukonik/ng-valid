@@ -50,7 +50,6 @@ Each validator follows a consistent pattern:
 
 ### Current Validators
 - **Blacklist**: Validates against prohibited values/patterns
-- **Contains**: Validates string contains specific substring
 
 ### CI/CD Pipeline
 - **GitHub Actions**: `.github/workflows/ci.yml`
@@ -117,19 +116,19 @@ I am a dedicated Angular developer who thrives on leveraging the absolute latest
 When generating validators, follow this exact implementation structure:
 
 ### File Structure
-For each validator (e.g., "contains"):
+For each validator (e.g., "email"):
 ```
-projects/ngx-valid/src/lib/contains/
-├── contains-val.ts               // Angular validator function with core logic
-├── contains-val.directive.ts     // Angular directive  
-├── contains-val.spec.ts          // Unit tests for validator function
-└── contains-val.directive.spec.ts // Unit tests for directive
+projects/ngx-valid/src/lib/email/
+├── email-val.ts               // Angular validator function with core logic
+├── email-val.directive.ts     // Angular directive  
+├── email-val.spec.ts          // Unit tests for validator function
+└── email-val.directive.spec.ts // Unit tests for directive
 ```
 
 ### Implementation Requirements
 
 1. **Angular Validator Function** (`[validatorName]-val.ts`):
-   - Export Angular ValidatorFn using camelCase + "Val" suffix (e.g., `containsVal`)
+   - Export Angular ValidatorFn using camelCase + "Val" suffix (e.g., `emailVal`)
    - Contains ALL validation logic directly (no separate core function)
    - Returns `ValidationErrors | null`
    - Follows Angular forms validation patterns
@@ -155,9 +154,9 @@ projects/ngx-valid/src/lib/contains/
    - Fix all ESLint violations before committing
 
 ### Naming Conventions
-- **Directory**: Use kebab-case, validator name only (e.g., `contains`, `email`, `credit-card`)
+- **Directory**: Use kebab-case, validator name only (e.g., `email`, `credit-card`, `phone-number`)
 - **Files**: Use kebab-case with `-val` suffix
-- **Functions**: Use camelCase with "Val" suffix (e.g., `containsVal`, `emailVal`)
+- **Functions**: Use camelCase with "Val" suffix (e.g., `emailVal`, `creditCardVal`)
 - **Directive selector**: Use kebab-case with library prefix (`ngValid[ValidatorName]`)
 
 ### Implementation Notes
@@ -221,7 +220,6 @@ Update the validator bullet list after the features section:
 ```markdown
 ## 📋 Available Validators
 
-- 🔍 [Contains](#-contains-validation) - Validates string contains substring
 - 📧 [Email](#-email-validation) - Validates email format
 - 🔐 [Password](#-password-validation) - Validates password strength
 ```
