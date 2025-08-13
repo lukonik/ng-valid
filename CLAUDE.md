@@ -110,6 +110,7 @@ packages/ng-valid/src/lib/contains/
 
 ### Implementation Notes
 - **ALWAYS use Pull Request workflow** for ANY changes (validators, docs, configs, etc.)
+- **ALWAYS create feature branch from latest main** - run `git checkout main && git pull origin main` first
 - **Create feature branch** for each change (e.g., `feat/validator-name`, `docs/readme-update`, `fix/bug-name`)
 - **Never commit directly to main** - all changes must go through PR review
 - Follow Angular v20+ best practices (standalone components, signals, etc.)
@@ -129,12 +130,13 @@ packages/ng-valid/src/lib/contains/
 - **Configuration**: `chore/description` (e.g., `chore/update-deps`, `chore/jest-config`)
 
 ### Required PR Process
-1. **Create feature branch**: `git checkout -b feat/feature-name`
-2. **Implement changes** with proper testing
-3. **Commit with conventional format**: `feat(scope): description`
-4. **Push branch**: `git push origin feat/feature-name`
-5. **Create Pull Request** with descriptive title and body
-6. **Wait for review** before merging to main
+1. **Start from latest main**: `git checkout main && git pull origin main`
+2. **Create feature branch**: `git checkout -b feat/feature-name`
+3. **Implement changes** with proper testing
+4. **Commit with conventional format**: `feat(scope): description`
+5. **Push branch**: `git push origin feat/feature-name`
+6. **Create Pull Request** with descriptive title and body
+7. **Wait for review** before merging to main
 
 ### PR Title Format
 Use conventional commit format:
