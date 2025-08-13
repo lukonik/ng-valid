@@ -18,8 +18,24 @@
     "dist",
     "!**/*.tsbuildinfo"
   ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
   "nx": {
-    "name": "ng-valid"
+    "name": "ng-valid",
+    "targets": {
+      "test": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{workspaceRoot}/coverage/{projectRoot}"
+        ],
+        "options": {
+          "jestConfig": "{projectRoot}/jest.config.cjs"
+        }
+      }
+    }
   },
   "dependencies": {
     "tslib": "^2.3.0"
