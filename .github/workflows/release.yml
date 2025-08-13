@@ -57,7 +57,7 @@ jobs:
           cat dist/ngx-valid/package.json
 
           echo "🔍 Public API exports:"
-          cat dist/ngx-valid/public-api.d.ts
+          cat dist/ngx-valid/index.d.ts
 
       - name: 🚀 Semantic Release
         uses: cycjimmy/semantic-release-action@v4
