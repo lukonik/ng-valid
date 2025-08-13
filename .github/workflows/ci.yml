@@ -32,4 +32,4 @@ jobs:
         run: npm run ng build ngx-valid
 
       - name: 🧪 Run Tests
-        run: npm run ng test ngx-valid --watch=false --browsers=ChromeHeadless
+        run: npm run test-ci
