@@ -141,7 +141,7 @@ jobs:
           echo "✅ **Release**: Created" >> $GITHUB_STEP_SUMMARY
           echo "✅ **NPM**: Published" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🔗 **NPM Package**: https://www.npmjs.com/package/ng-valid" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 **NPM Package**: https://www.npmjs.com/package/ngx-valid" >> $GITHUB_STEP_SUMMARY
           echo "📦 **GitHub Releases**: ${{ github.server_url }}/${{ github.repository }}/releases" >> $GITHUB_STEP_SUMMARY
 
   notify:
@@ -153,8 +153,8 @@ jobs:
     steps:
       - name: 🎊 Success Notification
         run: |
-          echo "🎉 ng-valid has been successfully released!"
-          echo "Check the package at: https://www.npmjs.com/package/ng-valid"
+          echo "🎉 ngx-valid has been successfully released!"
+          echo "Check the package at: https://www.npmjs.com/package/ngx-valid"
 
   cleanup:
     name: 🧹 Cleanup

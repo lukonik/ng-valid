@@ -1,6 +1,6 @@
-# 🎯 ng-valid
+# 🎯 ngx-valid
 
-[![npm version](https://badge.fury.io/js/ng-valid.svg)](https://badge.fury.io/js/ng-valid)
+[![npm version](https://badge.fury.io/js/ngx-valid.svg)](https://badge.fury.io/js/ngx-valid)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 [![Angular](https://img.shields.io/badge/Angular-v20+-red)](https://angular.dev)
@@ -27,15 +27,15 @@ A powerful, type-safe validation library for Angular v20+ applications featuring
 ## 📦 Installation
 
 ```bash
-npm install ng-valid
+npm install ngx-valid
 ```
 
 ```bash
-yarn add ng-valid
+yarn add ngx-valid
 ```
 
 ```bash
-pnpm add ng-valid
+pnpm add ngx-valid
 ```
 
 ## 🚀 Quick Start
@@ -44,7 +44,7 @@ pnpm add ng-valid
 ```typescript
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { containsVal } from 'ng-valid';
+import { containsVal } from 'ngx-valid';
 
 @Component({
   selector: 'app-example',
@@ -67,7 +67,7 @@ export class ExampleComponent {
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ContainsDirective } from 'ng-valid';
+import { ContainsDirective } from 'ngx-valid';
 
 @Component({
   selector: 'app-example',
@@ -101,7 +101,7 @@ Validates that a string contains a specific substring with customizable options.
 
 #### **Reactive Forms**
 ```typescript
-import { containsVal } from 'ng-valid';
+import { containsVal } from 'ngx-valid';
 
 // Basic usage
 const control = new FormControl('', containsVal('@'));
@@ -152,7 +152,7 @@ Automatically removes blacklisted characters from input values. This is a **tran
 
 #### **Reactive Forms**
 ```typescript
-import { blacklistVal } from 'ng-valid';
+import { blacklistVal } from 'ngx-valid';
 
 // Remove special characters
 const control = new FormControl('', blacklistVal('!@#$%^&*()'));
@@ -203,7 +203,7 @@ const noNumbersControl = new FormControl('', blacklistVal('0123456789'));
 
 ## 🏗️ Architecture
 
-ng-valid follows a **three-layer architecture** for each validator:
+ngx-valid follows a **three-layer architecture** for each validator:
 
 1. **🔧 Pure Function** - Core validation logic (framework-agnostic)
 2. **⚡ Angular Validator** - Angular ValidatorFn wrapper
@@ -228,23 +228,23 @@ All validators come with comprehensive test suites covering:
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 1. 🍴 Fork the repository
-2. 🌿 Create your feature branch (`git checkout -b feature/amazing-validator`)
+2. 🌿 Create your feature branch (`git checkout -b feature/amazingx-validator`)
 3. 💻 Make your changes with tests
 4. ✅ Ensure tests pass (`npm test`)
 5. 📝 Commit your changes (`git commit -m 'feat: add amazing validator'`)
-6. 🚀 Push to the branch (`git push origin feature/amazing-validator`)
+6. 🚀 Push to the branch (`git push origin feature/amazingx-validator`)
 7. 🎉 Open a Pull Request
 
 ## 📄 License
 
-MIT © [ng-valid contributors](https://github.com/lukonik/ng-valid/graphs/contributors)
+MIT © [ngx-valid contributors](https://github.com/lukonik/ngx-valid/graphs/contributors)
 
 ## 🔗 Links
 
-- 📖 [Documentation](https://github.com/lukonik/ng-valid#readme)
-- 🐛 [Issues](https://github.com/lukonik/ng-valid/issues)
-- 💬 [Discussions](https://github.com/lukonik/ng-valid/discussions)
-- 📦 [npm Package](https://www.npmjs.com/package/ng-valid)
+- 📖 [Documentation](https://github.com/lukonik/ngx-valid#readme)
+- 🐛 [Issues](https://github.com/lukonik/ngx-valid/issues)
+- 💬 [Discussions](https://github.com/lukonik/ngx-valid/discussions)
+- 📦 [npm Package](https://www.npmjs.com/package/ngx-valid)
 
 ---
 

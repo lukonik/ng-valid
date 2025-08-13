@@ -57,8 +57,8 @@ I am a dedicated Angular developer who thrives on leveraging the absolute latest
 - Optimize change detection with OnPush strategy
 
 ## Project Structure
-- Library code in `packages/ng-valid/src/lib/`
-- Export all public APIs through `packages/ng-valid/src/index.ts`
+- Library code in `packages/ngx-valid/src/lib/`
+- Export all public APIs through `packages/ngx-valid/src/index.ts`
 - Keep validators focused and composable
 - Follow Angular style guide: https://angular.dev/style-guide
 - Reference https://github.com/validatorjs/validator.js for validation logic implementation
@@ -69,7 +69,7 @@ When generating validators, follow this exact implementation structure:
 ### File Structure
 For each validator (e.g., "contains"):
 ```
-packages/ng-valid/src/lib/contains/
+packages/ngx-valid/src/lib/contains/
 ├── contains-val.ts               // Angular validator function with core logic
 ├── contains-val.directive.ts     // Angular directive  
 ├── contains-val.spec.ts          // Unit tests for validator function
@@ -93,7 +93,7 @@ packages/ng-valid/src/lib/contains/
    - Uses the validator function internally
 
 3. **Public API Exports**:
-   - Export validator function and directive in `packages/ng-valid/src/index.ts`
+   - Export validator function and directive in `packages/ngx-valid/src/index.ts`
    - Make all public APIs available for consumers
 
 4. **Comprehensive Testing**:
@@ -182,7 +182,7 @@ Update the validator bullet list after the features section:
 
 #### **Reactive Forms**
 ```typescript
-import { [validatorName]Val } from 'ng-valid';
+import { [validatorName]Val } from 'ngx-valid';
 
 // Basic usage
 const control = new FormControl('', [validatorName]Val());

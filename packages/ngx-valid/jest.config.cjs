@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'ng-valid',
+  displayName: 'ngx-valid',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
@@ -8,7 +8,7 @@ module.exports = {
     }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/ng-valid',
+  coverageDirectory: '../../coverage/packages/ngx-valid',
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.spec.ts',

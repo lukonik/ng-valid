@@ -1,6 +1,6 @@
-# 🤝 Contributing to ng-valid
+# 🤝 Contributing to ngx-valid
 
-Thank you for considering contributing to ng-valid! This guide will help you get started with contributing to our Angular validation library.
+Thank you for considering contributing to ngx-valid! This guide will help you get started with contributing to our Angular validation library.
 
 ## 🚀 Quick Start
 
@@ -20,17 +20,17 @@ Thank you for considering contributing to ng-valid! This guide will help you get
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/ng-valid.git
-cd ng-valid
+git clone https://github.com/YOUR_USERNAME/ngx-valid.git
+cd ngx-valid
 
 # Install dependencies
 npm install
 
 # Run tests
-npx nx test ng-valid
+npx nx test ngx-valid
 
 # Build the library
-npx nx build ng-valid
+npx nx build ngx-valid
 ```
 
 ## 🌿 Branch Naming
@@ -78,13 +78,13 @@ See our detailed [validator implementation pattern](CLAUDE.md#validator-implemen
 
 ```bash
 # Run all tests
-npx nx test ng-valid
+npx nx test ngx-valid
 
 # Run tests in watch mode
-cd packages/ng-valid && npm run test:watch
+cd packages/ngx-valid && npm run test:watch
 
 # Run tests with coverage
-cd packages/ng-valid && npm run test:coverage
+cd packages/ngx-valid && npm run test:coverage
 ```
 
 ## 📚 Documentation
@@ -109,9 +109,9 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ## 🆘 Need Help?
 
-- **Questions**: Open a [Discussion](https://github.com/lukonik/ng-valid/discussions)
-- **Bugs**: Report an [Issue](https://github.com/lukonik/ng-valid/issues)
-- **Features**: Suggest via [Issues](https://github.com/lukonik/ng-valid/issues) with `enhancement` label
+- **Questions**: Open a [Discussion](https://github.com/lukonik/ngx-valid/discussions)
+- **Bugs**: Report an [Issue](https://github.com/lukonik/ngx-valid/issues)
+- **Features**: Suggest via [Issues](https://github.com/lukonik/ngx-valid/issues) with `enhancement` label
 
 ---
 
