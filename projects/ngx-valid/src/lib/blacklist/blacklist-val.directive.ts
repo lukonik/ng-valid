@@ -1,5 +1,10 @@
 import { Directive, Input, forwardRef } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
 import { blacklistVal } from './blacklist-val';
 
 /**
@@ -27,18 +32,19 @@ import { blacklistVal } from './blacklist-val';
  * ```
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[ngValidBlacklist]',
   providers: [
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => BlacklistDirective),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class BlacklistDirective implements Validator {
   /** Characters to remove from the input (blacklisted characters) */
-  @Input('ngValidBlacklist') chars: string = '';
+  @Input('ngValidBlacklist') chars = '';
 
   validate(control: AbstractControl): ValidationErrors | null {
     if (!this.chars) {

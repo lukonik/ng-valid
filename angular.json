@@ -26,11 +26,24 @@
           "options": {
             "tsConfig": "projects/ngx-valid/tsconfig.spec.json"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-valid/**/*.ts",
+              "projects/ngx-valid/**/*.html"
+            ],
+            "eslintConfig": "projects/ngx-valid/eslint.config.js"
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

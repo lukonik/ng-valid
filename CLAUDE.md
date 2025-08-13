@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Project Configuration for Claude Code
 
 ## Commit Standards
@@ -6,6 +10,52 @@
   - Types: feat, fix, docs, style, refactor, test, chore
   - Include body when needed for context
   - Always include Claude Code footer
+
+## Development Commands
+
+### Building
+- **Build library**: `npm run ng build ngx-valid` or `ng build ngx-valid`
+- **Watch mode**: `npm run watch` - builds with file watching for development
+
+### Testing  
+- **Run all tests**: `npm test` or `ng test`
+- **Run tests in CI mode**: `npm run test-ci` - headless mode for CI/CD
+- **Single test run**: `ng test --no-watch --browsers=ChromeHeadless`
+
+### Code Quality
+- **Run ESLint**: `npm run lint` or `ng lint`
+- **ESLint config**: `projects/ngx-valid/eslint.config.js`
+- **Linting scope**: TypeScript and HTML files in library
+
+### Development
+- **Start dev server**: `npm start` or `ng serve` 
+- **Install dependencies**: `npm ci` (preferred) or `npm install`
+
+## Architecture Overview
+
+This is an Angular library (`ngx-valid`) that provides form validation utilities. Key architectural points:
+
+### Project Structure
+- **Main library**: `projects/ngx-valid/` - contains the core library code
+- **Library source**: `projects/ngx-valid/src/lib/` - individual validator implementations
+- **Public API**: `projects/ngx-valid/src/public-api.ts` - exports all public validators and directives
+- **Build output**: `dist/ngx-valid/` - compiled library for distribution
+
+### Validation Architecture
+Each validator follows a consistent pattern:
+- **Validator function**: Pure TypeScript function returning `ValidatorFn`
+- **Directive**: Angular directive for template-driven forms
+- **Testing**: Both validator function and directive are thoroughly tested
+- **Export**: All public APIs exported through main index
+
+### Current Validators
+- **Blacklist**: Validates against prohibited values/patterns
+- **Contains**: Validates string contains specific substring
+
+### CI/CD Pipeline
+- **GitHub Actions**: `.github/workflows/ci.yml`
+- **Pipeline steps**: Install → Build → Test
+- **Triggers**: Push to main, all PRs
 
 ## Angular Developer Persona
 I am a dedicated Angular developer who thrives on leveraging the absolute latest features of Angular v20+. I passionately adopt signals for reactive state management, embrace standalone components for streamlined architecture, and utilize the new control flow for more intuitive template logic. Performance is paramount, constantly seeking to optimize change detection and improve user experience through modern Angular paradigms.
@@ -57,8 +107,8 @@ I am a dedicated Angular developer who thrives on leveraging the absolute latest
 - Optimize change detection with OnPush strategy
 
 ## Project Structure
-- Library code in `packages/ngx-valid/src/lib/`
-- Export all public APIs through `packages/ngx-valid/src/index.ts`
+- Library code in `projects/ngx-valid/src/lib/`
+- Export all public APIs through `projects/ngx-valid/src/public-api.ts`
 - Keep validators focused and composable
 - Follow Angular style guide: https://angular.dev/style-guide
 - Reference https://github.com/validatorjs/validator.js for validation logic implementation
@@ -69,7 +119,7 @@ When generating validators, follow this exact implementation structure:
 ### File Structure
 For each validator (e.g., "contains"):
 ```
-packages/ngx-valid/src/lib/contains/
+projects/ngx-valid/src/lib/contains/
 ├── contains-val.ts               // Angular validator function with core logic
 ├── contains-val.directive.ts     // Angular directive  
 ├── contains-val.spec.ts          // Unit tests for validator function
@@ -93,14 +143,16 @@ packages/ngx-valid/src/lib/contains/
    - Uses the validator function internally
 
 3. **Public API Exports**:
-   - Export validator function and directive in `packages/ngx-valid/src/index.ts`
+   - Export validator function and directive in `projects/ngx-valid/src/public-api.ts`
    - Make all public APIs available for consumers
 
-4. **Comprehensive Testing**:
+4. **Comprehensive Testing & Code Quality**:
    - Unit tests for Angular validator function  
    - Unit tests for Angular directive
    - Test both valid and invalid scenarios
    - Test edge cases and error conditions
+   - **ALWAYS run ESLint** after implementation: `npm run lint`
+   - Fix all ESLint violations before committing
 
 ### Naming Conventions
 - **Directory**: Use kebab-case, validator name only (e.g., `contains`, `email`, `credit-card`)
@@ -228,7 +280,10 @@ This ensures consistent, comprehensive documentation for all validators.
 - Dependency Injection: https://angular.dev/essentials/dependency-injection
 - Style Guide: https://angular.dev/style-guide
 
-## Testing
+## Testing & Code Quality
 - Write unit tests for all validators
-- Use Jest for testing framework
+- Use Karma/Jasmine for testing framework  
 - Test both valid and invalid scenarios
+- **Run ESLint before committing**: `npm run lint`
+- Ensure all ESLint rules pass (TypeScript and HTML files)
+- Follow Angular ESLint configuration standards
