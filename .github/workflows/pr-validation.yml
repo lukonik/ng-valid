@@ -32,15 +32,15 @@ jobs:
         run: npm ci
 
       - name: 🏗️ Build Library
-        run: ng build ngx-valid
+        run: npm run ng build ngx-valid
 
       - name: 🧪 Run Tests
-        run: ng test ngx-valid --watch=false --browsers=ChromeHeadless
+        run: npm run ng test ngx-valid --watch=false --browsers=ChromeHeadless
 
       - name: 🔍 Run Lint (if available)
         run: |
-          if ng lint --help >/dev/null 2>&1; then
-            ng lint ngx-valid
+          if npm run ng lint --help >/dev/null 2>&1; then
+            npm run ng lint ngx-valid
           else
             echo "No lint target found, skipping..."
           fi
@@ -82,7 +82,7 @@ jobs:
 
       - name: 📊 Check Bundle Size
         run: |
-          ng build ngx-valid
+          npm run ng build ngx-valid
           ls -la dist/ngx-valid/
           echo "Bundle analysis complete"
 
@@ -131,24 +131,24 @@ jobs:
         run: |
           echo "## 🔍 PR Validation Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          
+
           if [[ "${{ needs.validate.result }}" == "success" ]]; then
             echo "✅ **Build & Tests**: Passed" >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ **Build & Tests**: Failed" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           if [[ "${{ needs.accessibility.result }}" == "success" ]]; then
             echo "✅ **Quality Checks**: Passed" >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ **Quality Checks**: Failed" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           if [[ "${{ needs.metadata.result }}" == "success" ]]; then
             echo "✅ **PR Standards**: Met" >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ **PR Standards**: Not Met" >> $GITHUB_STEP_SUMMARY
           fi
-          
+
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Ready for review! 🚀" >> $GITHUB_STEP_SUMMARY

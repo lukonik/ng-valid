@@ -1,9 +1,9 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { containsValidation, ContainsValidationOptions } from './contains-validation.js';
+import { containsValidation, ContainsValidationOptions } from './contains-validation';
 
 /**
  * Angular validator function for contains validation
- * 
+ *
  * @param element The element that the input value must contain
  * @param options Validation options
  * @returns ValidatorFn that validates if input contains the specified element
