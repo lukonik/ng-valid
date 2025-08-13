@@ -1,10 +1,13 @@
 export * from './lib/ngx-valid.js';
 
 // Contains validation exports
-export { containsValidation } from './lib/contains-validation/contains-validation.js';
-export type { ContainsValidationOptions } from './lib/contains-validation/contains-validation.js';
-export { containsValidationVal } from './lib/contains-validation/contains-validation-val.js';
-export { ContainsValidationDirective } from './lib/contains-validation/contains-validation-val.directive.js';
+export { containsVal } from './lib/contains/contains-val.js';
+export type { ContainsValidationOptions } from './lib/contains/contains-val.js';
+export { ContainsDirective } from './lib/contains/contains-val.directive.js';
+
+// Equals validation exports
+export { equalsVal } from './lib/equals/equals-val.js';
+export { EqualsDirective } from './lib/equals/equals-val.directive.js';
 
 // Blacklist validation exports
 export { blacklistVal } from './lib/blacklist/blacklist-val.js';

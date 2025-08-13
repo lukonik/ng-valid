@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="logo.png" alt="ngx-valid Logo" width="200" />
+</div>
+
 # 🎯 ngx-valid
 
 [![npm version](https://badge.fury.io/js/ngx-valid.svg)](https://badge.fury.io/js/ngx-valid)
@@ -22,6 +26,7 @@ A powerful, type-safe validation library for Angular v20+ applications featuring
 ## 📋 Available Validators
 
 - 🔍 [Contains](#-contains-validation) - Validates string contains substring
+- ⚖️ [Equals](#-equals-validation) - Validates exact equality between values
 - 🚫 [Blacklist](#-blacklist-validation) - Removes blacklisted characters from input
 
 ## 📦 Installation
@@ -145,6 +150,65 @@ const advancedControl = new FormControl('', containsVal('@', {
   }
 }
 ```
+
+### ⚖️ Equals Validation
+
+Validates that the input value is exactly equal to a comparison value using strict equality. Perfect for password confirmation, email verification, and ensuring precise matches.
+
+#### **Reactive Forms**
+```typescript
+import { equalsVal } from 'ngx-valid';
+
+// Basic usage
+const control = new FormControl('', equalsVal('expectedValue'));
+
+// Password confirmation example
+const passwordControl = new FormControl('password123');
+const confirmControl = new FormControl('', equalsVal('password123'));
+
+// Dynamic comparison (get value from another control)
+const confirmPasswordValidator = () => equalsVal(passwordControl.value);
+```
+
+#### **Template-Driven Forms**
+```html
+<!-- Basic usage -->
+<input ngValidEquals="expectedValue" [(ngModel)]="inputValue" name="input">
+
+<!-- Password confirmation example -->
+<input type="password" [(ngModel)]="password" name="password" #pwd>
+<input 
+  type="password" 
+  ngValidEquals="{{ password }}"
+  [(ngModel)]="confirmPassword" 
+  name="confirmPassword"
+>
+```
+
+#### **Error Object**
+```typescript
+{
+  equals: {
+    actualValue: 'userInput',
+    expectedValue: 'expectedValue',
+    actualValueAsString: 'userInput'
+  }
+}
+```
+
+#### **Key Features**
+- **Strict Equality**: Uses strict comparison after string conversion
+- **Type Safe**: Converts values to strings for consistent comparison
+- **Versatile**: Works with any data type (strings, numbers, booleans)
+- **Case Sensitive**: Distinguishes between uppercase and lowercase
+- **Real-time Validation**: Validates as user types
+
+#### **Use Cases**
+- Password confirmation fields
+- Email address confirmation
+- Terms and conditions acceptance
+- Exact value matching
+- Data verification forms
 
 ### 🚫 Blacklist Validation
 

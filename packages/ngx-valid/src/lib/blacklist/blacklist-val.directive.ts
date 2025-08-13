@@ -1,11 +1,12 @@
-import { Directive, Input, forwardRef } from '@angular/core';
+import { Directive, forwardRef, input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import { blacklistVal } from './blacklist-val.js';
 
 /**
- * Angular directive for blacklist validation in template-driven forms
+ * Angular standalone directive for blacklist validation in template-driven forms
  * 
  * This directive automatically removes blacklisted characters from input as the user types.
+ * Uses Angular v20+ signals and standalone directive pattern.
  * 
  * @example
  * ```html
@@ -38,14 +39,15 @@ import { blacklistVal } from './blacklist-val.js';
 })
 export class BlacklistDirective implements Validator {
   /** Characters to remove from the input (blacklisted characters) */
-  @Input('ngValidBlacklist') chars: string = '';
+  chars = input.required<string>({ alias: 'ngValidBlacklist' });
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (!this.chars) {
+    const charsValue = this.chars();
+    if (!charsValue) {
       return null;
     }
 
-    const validator = blacklistVal(this.chars);
+    const validator = blacklistVal(charsValue);
     return validator(control);
   }
 }
