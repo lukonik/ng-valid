@@ -32,26 +32,23 @@ jobs:
         run: npm ci
 
       - name: 🏗️ Build Library
-        run: npx nx build ngx-valid
+        run: ng build ngx-valid
 
       - name: 🧪 Run Tests
-        run: npx nx test ngx-valid
+        run: ng test ngx-valid --watch=false --browsers=ChromeHeadless
 
       - name: 🔍 Run Lint (if available)
         run: |
-          if npx nx show project ngx-valid | grep -q '"lint"'; then
-            npx nx lint ngx-valid
+          if ng lint --help >/dev/null 2>&1; then
+            ng lint ngx-valid
           else
             echo "No lint target found, skipping..."
           fi
         continue-on-error: false
 
-      - name: 📊 Type Check
-        run: npx nx typecheck ngx-valid
-
       - name: 📋 Validate Package
         run: |
-          cd packages/ngx-valid
+          cd projects/ngx-valid
           npm pack --dry-run
 
       - name: 🚀 Build Check Summary
@@ -85,8 +82,8 @@ jobs:
 
       - name: 📊 Check Bundle Size
         run: |
-          npx nx build ngx-valid
-          ls -la packages/ngx-valid/dist/
+          ng build ngx-valid
+          ls -la dist/ngx-valid/
           echo "Bundle analysis complete"
 
   metadata:
@@ -115,7 +112,7 @@ jobs:
 
       - name: 📝 Check for Documentation Updates
         run: |
-          if git diff --name-only origin/main...HEAD | grep -E "packages/ngx-valid/src/lib/.*\.ts$" && ! git diff --name-only origin/main...HEAD | grep -q "README.md"; then
+          if git diff --name-only origin/main...HEAD | grep -E "projects/ngx-valid/src/lib/.*\.ts$" && ! git diff --name-only origin/main...HEAD | grep -q "README.md"; then
             echo "⚠️ Warning: Code changes detected but README.md not updated"
             echo "Please ensure documentation is updated for new validators or significant changes"
             exit 1
