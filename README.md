@@ -22,6 +22,7 @@ A powerful, type-safe validation library for Angular v20+ applications featuring
 ## 📋 Available Validators
 
 - 🔍 [Contains](#-contains-validation) - Validates string contains substring
+- 🚫 [Blacklist](#-blacklist-validation) - Removes blacklisted characters from input
 
 ## 📦 Installation
 
@@ -144,6 +145,61 @@ const advancedControl = new FormControl('', containsVal('@', {
   }
 }
 ```
+
+### 🚫 Blacklist Validation
+
+Automatically removes blacklisted characters from input values. This is a **transformer validator** that modifies the input rather than showing validation errors.
+
+#### **Reactive Forms**
+```typescript
+import { blacklistVal } from 'ng-valid';
+
+// Remove special characters
+const control = new FormControl('', blacklistVal('!@#$%^&*()'));
+
+// Remove vowels
+const noVowelsControl = new FormControl('', blacklistVal('aeiouAEIOU'));
+
+// Remove numbers
+const noNumbersControl = new FormControl('', blacklistVal('0123456789'));
+```
+
+#### **Template-Driven Forms**
+```html
+<!-- Remove special characters -->
+<input 
+  ngValidBlacklist="!@#$%^&*()"
+  [(ngModel)]="text" 
+  name="cleanText"
+  placeholder="Special characters will be removed"
+>
+
+<!-- Remove specific characters -->
+<input 
+  ngValidBlacklist="aeiou"
+  [(ngModel)]="consonantsOnly" 
+  name="consonants"
+  placeholder="No vowels allowed"
+>
+```
+
+#### **Options**
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `errorKey` | `string` | `undefined` | Custom error key (not used in current implementation) |
+
+#### **Behavior**
+- **Transforms input**: Removes specified characters as user types
+- **No validation errors**: Always returns `null` (acts as transformer)
+- **Real-time filtering**: Characters are removed immediately
+- **Regex-safe**: Properly escapes special regex characters
+
+#### **Use Cases**
+- Remove special characters from usernames
+- Filter out numbers from text input
+- Create consonant-only or vowel-only inputs
+- Clean phone number inputs
+- Remove spaces or unwanted characters
 
 ## 🏗️ Architecture
 
