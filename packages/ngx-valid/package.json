@@ -1,5 +1,5 @@
 {
-  "name": "ng-valid",
+  "name": "ngx-valid",
   "version": "0.0.1",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,7 +24,7 @@
     "test:coverage": "jest --coverage"
   },
   "nx": {
-    "name": "ng-valid",
+    "name": "ngx-valid",
     "targets": {
       "test": {
         "executor": "@nx/jest:jest",

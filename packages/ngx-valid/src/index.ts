@@ -1,4 +1,4 @@
-export * from './lib/ng-valid.js';
+export * from './lib/ngx-valid.js';
 
 // Contains validation exports
 export { containsValidation } from './lib/contains-validation/contains-validation.js';
