@@ -16,7 +16,7 @@ jobs:
     name: 🚀 Semantic Release
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'skip ci')"
-    
+
     steps:
       - name: 📦 Checkout Repository
         uses: actions/checkout@v4
@@ -34,15 +34,15 @@ jobs:
         run: npm ci
 
       - name: 🏗️ Build Library
-        run: ng build ngx-valid --configuration production
+        run: npm run ng build ngx-valid --configuration production
 
       - name: 🧪 Run Tests
-        run: ng test ngx-valid --watch=false --browsers=ChromeHeadless --code-coverage
+        run: npm run ng test ngx-valid --watch=false --browsers=ChromeHeadless --code-coverage
 
       - name: 🔍 Run Lint (if available)
         run: |
-          if ng lint --help >/dev/null 2>&1; then
-            ng lint ngx-valid
+          if npm run ng lint --help >/dev/null 2>&1; then
+            npm run ng lint ngx-valid
           else
             echo "No lint configured, skipping..."
           fi
@@ -52,10 +52,10 @@ jobs:
         run: |
           echo "📦 Checking build output..."
           ls -la dist/ngx-valid/
-          
+
           echo "📋 Package.json content:"
           cat dist/ngx-valid/package.json
-          
+
           echo "🔍 Public API exports:"
           cat dist/ngx-valid/public-api.d.ts
 
@@ -85,7 +85,7 @@ jobs:
           echo "## 🎉 Release Complete!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Build**: Success" >> $GITHUB_STEP_SUMMARY
-          echo "✅ **Tests**: Passed" >> $GITHUB_STEP_SUMMARY  
+          echo "✅ **Tests**: Passed" >> $GITHUB_STEP_SUMMARY
           echo "✅ **Semantic Release**: Complete" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "🔗 **NPM Package**: https://www.npmjs.com/package/ngx-valid" >> $GITHUB_STEP_SUMMARY
