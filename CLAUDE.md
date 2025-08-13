@@ -125,6 +125,65 @@ packages/ng-valid/src/lib/email-validation/
 - Keep validators composable and focused on single responsibility
 - Ensure all validators work with both reactive and template-driven forms
 
+## README.md Maintenance
+**CRITICAL**: After implementing each new validator, ALWAYS update README.md:
+
+### Required Updates for Each Validator
+1. **Add new validator section** in "📚 Available Validators" section
+2. **Include validator emoji** and descriptive title
+3. **Provide complete documentation** with:
+   - Brief description of what it validates
+   - Core function usage examples
+   - Reactive forms examples
+   - Template-driven forms examples
+   - Options table (if applicable)
+   - Error object structure
+4. **Follow existing format** exactly as shown in Contains Validation section
+5. **Use appropriate emojis** for visual consistency
+6. **Include TypeScript examples** with proper imports
+7. **Show both basic and advanced usage** patterns
+
+### Documentation Template for New Validators
+```markdown
+### [EMOJI] [Validator Name] Validation
+
+[Brief description of what it validates and key features]
+
+#### **Core Function**
+```typescript
+import { [validatorName] } from 'ng-valid';
+
+const isValid = [validatorName]('example', options); // true/false
+```
+
+#### **Reactive Forms**
+```typescript
+import { [validatorName]Val } from 'ng-valid';
+
+const control = new FormControl('', [validatorName]Val(options));
+```
+
+#### **Template-Driven Forms**
+```html
+<input ngValid[ValidatorName]="value" [(ngModel)]="model" name="field">
+```
+
+#### **Options** (if applicable)
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+
+#### **Error Object**
+```typescript
+{
+  [validatorErrorKey]: {
+    // error structure
+  }
+}
+```
+```
+
+This ensures consistent, comprehensive documentation for all validators.
+
 ## Resources
 - Components: https://angular.dev/essentials/components
 - Signals: https://angular.dev/essentials/signals
