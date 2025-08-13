@@ -51,6 +51,9 @@ I am a dedicated Angular developer who thrives on leveraging the absolute latest
 - Prefer type inference when type is obvious
 - **Avoid `any` type** - use `unknown` when type is uncertain
 
+### Unit Tests
+- use setInput for signald valued inputs
+
 ### Performance
 - Use `NgOptimizedImage` for all static images
 - Implement lazy loading for feature routes

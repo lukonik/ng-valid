@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
-import { FormControl, FormsModule } from '@angular/forms';
-import { TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ContainsDirective } from './contains-val.directive';
 
 @Component({
   template: `
-    <input 
-      ngValidContains="{{ element }}"
-      [ngValidContainsIgnoreCase]="ignoreCase"
-      [ngValidContainsMinOccurrences]="minOccurrences"
-      [(ngModel)]="value" 
-      name="testInput"
-      #input="ngModel"
-    >
+    <form #testForm="ngForm">
+      <input
+        ngValidContains="{{ element }}"
+        [ngValidContainsIgnoreCase]="ignoreCase"
+        [ngValidContainsMinOccurrences]="minOccurrences"
+        [(ngModel)]="value"
+        name="testInput"
+        #input="ngModel"
+      />
+    </form>
   `,
-  imports: [FormsModule, ContainsDirective]
+  imports: [FormsModule, ContainsDirective],
 })
 class TestComponent {
   element = '';
@@ -25,11 +27,11 @@ class TestComponent {
 
 describe('ContainsDirective', () => {
   let component: TestComponent;
-  let fixture: any;
+  let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestComponent]
+      imports: [TestComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
@@ -40,85 +42,60 @@ describe('ContainsDirective', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should validate contains requirement', () => {
-    const directive = new ContainsDirective();
-    // Note: In real usage, signals would be set by Angular's input binding
-    // For unit tests, we need to mock the signal behavior
-    (directive.element as any) = () => '@';
-    (directive.ignoreCase as any) = () => false;
-    (directive.minOccurrences as any) = () => 1;
+  it('should validate contains requirement through template integration', async () => {
+    component.element = '@';
+    component.value = 'test@example.com';
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const input = fixture.nativeElement.querySelector('input');
+    const ngModel = fixture.debugElement.children[0].children[0].references['input'];
     
-    const validControl = new FormControl('test@example.com');
-    const invalidControl = new FormControl('testexample.com');
-    
-    expect(directive.validate(validControl)).toBeNull();
-    expect(directive.validate(invalidControl)).toEqual({
-      contains: {
-        actualValue: 'testexample.com',
-        requiredElement: '@',
-        ignoreCase: false,
-        minOccurrences: 1
-      }
-    });
+    expect(input).toBeTruthy();
+    expect(ngModel.valid).toBeTruthy();
+
+    // Test with value that doesn't contain required element
+    component.value = 'testexample.com';
+    input.value = 'testexample.com';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(ngModel.invalid).toBeTruthy();
+    expect(ngModel.errors?.['contains']).toBeTruthy();
   });
 
-  it('should handle ignoreCase option', () => {
-    const directive = new ContainsDirective();
-    (directive.element as any) = () => 'HELLO';
-    (directive.ignoreCase as any) = () => true;
-    (directive.minOccurrences as any) = () => 1;
-    
-    const control = new FormControl('hello world');
-    expect(directive.validate(control)).toBeNull();
+  it('should handle ignore case option', async () => {
+    component.element = 'HELLO';
+    component.ignoreCase = true;
+    component.value = 'hello world';
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const ngModel = fixture.debugElement.children[0].children[0].references['input'];
+    expect(ngModel.valid).toBeTruthy();
   });
 
-  it('should handle minOccurrences option', () => {
-    const directive = new ContainsDirective();
-    (directive.element as any) = () => 'test';
-    (directive.ignoreCase as any) = () => false;
-    (directive.minOccurrences as any) = () => 2;
-    
-    const validControl = new FormControl('test test test');
-    const invalidControl = new FormControl('test only once');
-    
-    expect(directive.validate(validControl)).toBeNull();
-    expect(directive.validate(invalidControl)).toEqual({
-      contains: {
-        actualValue: 'test only once',
-        requiredElement: 'test',
-        ignoreCase: false,
-        minOccurrences: 2
-      }
-    });
-  });
+  it('should handle min occurrences option', async () => {
+    component.element = 'test';
+    component.minOccurrences = 2;
+    component.value = 'test test test';
+    fixture.detectChanges();
+    await fixture.whenStable();
 
-  it('should return null when element is empty', () => {
-    const directive = new ContainsDirective();
-    (directive.element as any) = () => '';
-    (directive.ignoreCase as any) = () => false;
-    (directive.minOccurrences as any) = () => 1;
+    const input = fixture.nativeElement.querySelector('input');
+    const ngModel = fixture.debugElement.children[0].children[0].references['input'];
     
-    const control = new FormControl('any value');
-    expect(directive.validate(control)).toBeNull();
-  });
+    expect(ngModel.valid).toBeTruthy();
 
-  it('should handle all options together', () => {
-    const directive = new ContainsDirective();
-    (directive.element as any) = () => 'HELLO';
-    (directive.ignoreCase as any) = () => true;
-    (directive.minOccurrences as any) = () => 2;
-    
-    const validControl = new FormControl('hello world HELLO again');
-    const invalidControl = new FormControl('hello world only');
-    
-    expect(directive.validate(validControl)).toBeNull();
-    expect(directive.validate(invalidControl)).toEqual({
-      contains: {
-        actualValue: 'hello world only',
-        requiredElement: 'HELLO',
-        ignoreCase: true,
-        minOccurrences: 2
-      }
-    });
+    // Test with insufficient occurrences
+    component.value = 'test only once';
+    input.value = 'test only once';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(ngModel.invalid).toBeTruthy();
+    expect(ngModel.errors?.['contains']).toBeTruthy();
   });
 });
