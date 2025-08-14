@@ -39,22 +39,21 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { contains } from 'ngx-valid';
 
 const form = new FormGroup({
-  message: new FormControl('', [
-    contains('hello', { ignoreCase: true })
-  ])
+  message: new FormControl('', [contains('hello', { ignoreCase: true })]),
 });
 ```
 
 ### Template-Driven Forms
 
 ```html
-<input 
-  type="text" 
-  name="message" 
+<input
+  type="text"
+  name="message"
   valContains="hello"
   [valContainsOptions]="{ ignoreCase: true }"
   [(ngModel)]="message"
-  #messageInput="ngModel">
+  #messageInput="ngModel"
+/>
 
 <div *ngIf="messageInput.errors?.['contains']">
   Message must contain "hello"
@@ -63,43 +62,102 @@ const form = new FormGroup({
 
 ## 📚 Available Validators
 
+- [Contains](#contains-validator) - Validates that a string contains a specific substring
+- [Equals](#equals-validator) - Validates that a string exactly equals a specific value
+
 ### Contains Validator
 
 Validates that a string contains a specific substring.
 
 #### Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `ignoreCase` | `boolean` | `false` | Perform case-insensitive search |
-| `minOccurrences` | `number` | `1` | Minimum number of occurrences required |
+| Option           | Type      | Default | Description                            |
+| ---------------- | --------- | ------- | -------------------------------------- |
+| `ignoreCase`     | `boolean` | `false` | Perform case-insensitive search        |
+| `minOccurrences` | `number`  | `1`     | Minimum number of occurrences required |
 
 #### Examples
 
 **Basic Usage:**
+
 ```typescript
 import { contains } from 'ngx-valid';
 
 // Must contain 'test'
-contains('test')
+contains('test');
 
 // Case insensitive search
-contains('TEST', { ignoreCase: true })
+contains('TEST', { ignoreCase: true });
 
 // Require multiple occurrences
-contains('a', { minOccurrences: 3 })
+contains('a', { minOccurrences: 3 });
 ```
 
 **Template Directive:**
+
 ```html
 <!-- Basic usage -->
-<input valContains="world" [(ngModel)]="text">
+<input valContains="world" [(ngModel)]="text" />
 
 <!-- With options -->
-<input 
+<input
   valContains="hello"
   [valContainsOptions]="{ ignoreCase: true, minOccurrences: 2 }"
-  [(ngModel)]="text">
+  [(ngModel)]="text"
+/>
+```
+
+### Equals Validator
+
+Validates that a string exactly equals a specific comparison value.
+
+#### Examples
+
+**Basic Usage:**
+
+```typescript
+import { equals } from 'ngx-valid';
+
+// Must equal 'exact-match'
+equals('exact-match');
+
+// Type-safe string comparison
+equals('password123');
+```
+
+**Template Directive:**
+
+```html
+<!-- Basic usage -->
+<input valEquals="expected-value" [(ngModel)]="text" />
+
+<!-- Password confirmation -->
+<input type="password" [(ngModel)]="password" #pwd="ngModel" />
+<input
+  type="password"
+  [valEquals]="pwd.value || ''"
+  [(ngModel)]="confirmPassword"
+  #confirmPwd="ngModel"
+/>
+
+<div *ngIf="confirmPwd.errors?.['equals']">Passwords do not match</div>
+```
+
+**Reactive Forms Example:**
+
+```typescript
+import { FormControl, FormGroup } from '@angular/forms';
+import { equals } from 'ngx-valid';
+
+const form = new FormGroup({
+  password: new FormControl(''),
+  confirmPassword: new FormControl(''),
+});
+
+// Dynamic equals validation
+form
+  .get('confirmPassword')
+  ?.setValidators([equals(form.get('password')?.value || '')]);
 ```
 
 ## 🛠️ Development
