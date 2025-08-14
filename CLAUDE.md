@@ -25,6 +25,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - add documentation in README.md, add the link in the list that will navigate to the correct section
 - whenever you modify README.md, always sync it with projects/ngx-valid/README.md file
 - write comprehensive unit tests
-- run npm run check to validate that everything passes, if not fix them and rerun again
+- run npm run check to validate that everything passes (includes linting, formatting, testing, and building), if not fix them and rerun again
 - if there are formatting issues, run npm run format:write to fix them
 - create a PR with conventional commit format (feat: add [validationName] validation)
