@@ -65,6 +65,7 @@ const form = new FormGroup({
 - [Contains](#contains-validator) - Validates that a string contains a specific substring
 - [Equals](#equals-validator) - Validates that a string exactly equals a specific value
 - [IsAfter](#isafter-validator) - Validates that a date is after a specific comparison date
+- [IsBefore](#isbefore-validator) - Validates that a date is before a specific comparison date
 
 ### Contains Validator
 
@@ -224,6 +225,71 @@ const form = new FormGroup({
 form
   .get('endDate')
   ?.setValidators([isAfter({ comparisonDate: form.get('startDate')?.value })]);
+```
+
+### IsBefore Validator
+
+Validates that a date is before a specific comparison date.
+
+#### Options
+
+| Option           | Type             | Default      | Description                 |
+| ---------------- | ---------------- | ------------ | --------------------------- |
+| `comparisonDate` | `string \| Date` | `new Date()` | The date to compare against |
+
+#### Examples
+
+**Basic Usage:**
+
+```typescript
+import { isBefore } from 'ngx-valid';
+
+// Must be before current date/time
+isBefore();
+
+// Must be before specific date
+isBefore({ comparisonDate: '2024-12-31' });
+
+// Must be before specific date object
+isBefore({ comparisonDate: new Date('2024-12-31') });
+```
+
+**Template Directive:**
+
+```html
+<!-- Must be before current date -->
+<input type="date" valIsBefore [(ngModel)]="selectedDate" />
+
+<!-- Must be before specific date -->
+<input type="date" valIsBefore="2024-12-31" [(ngModel)]="selectedDate" />
+
+<!-- Must be before another form field -->
+<input type="date" [(ngModel)]="endDate" #end="ngModel" />
+<input
+  type="date"
+  [valIsBefore]="end.value"
+  [(ngModel)]="startDate"
+  #start="ngModel"
+/>
+
+<div *ngIf="start.errors?.['isBefore']">Start date must be before end date</div>
+```
+
+**Reactive Forms Example:**
+
+```typescript
+import { FormControl, FormGroup } from '@angular/forms';
+import { isBefore } from 'ngx-valid';
+
+const form = new FormGroup({
+  startDate: new FormControl(''),
+  endDate: new FormControl(''),
+});
+
+// Dynamic date validation
+form
+  .get('startDate')
+  ?.setValidators([isBefore({ comparisonDate: form.get('endDate')?.value })]);
 ```
 
 ## 🛠️ Development
