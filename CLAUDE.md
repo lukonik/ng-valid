@@ -15,6 +15,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Implementation Details (when I ask to add new validation do the following)
 
 - create new branch from latest main
+- follow instructions.md style guide for implementation
+- this project uses zoneless change detection, always add provideZonelessChangeDetection() to test providers
 - create a folder called [validationName] (use dashcase if neccessary)
 - create a file called [validationName].ts, that will implement and export function of the validation, use Angular custom validation style guide
 - create a file called [validationName].directive.ts that will implement Angular Forms Custom Validation directive, use function validation internally to handle the validation
@@ -22,4 +24,5 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - add documentation in README.md, add the link in the list that will navigate to the correct section
 - write comprehensive unit tests
 - run npm run check to validate that everything passes, if not fix them and rerun again
-- create a PR
+- if there are formatting issues, run npm run format:write to fix them
+- create a PR with conventional commit format (feat: add [validationName] validation)

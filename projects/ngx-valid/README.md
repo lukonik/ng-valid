@@ -1,5 +1,11 @@
 # NgxValid
 
+Angular validation library with modern validators for Angular applications.
+
+## Available Validators
+
+- [Contains](#contains) - Validates that a string contains a specific substring
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
 
 ## Code scaffolding
@@ -62,3 +68,58 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Validators
+
+### Contains
+
+Validates that a string contains a specific substring.
+
+**Function Usage:**
+
+```typescript
+import { FormControl } from '@angular/forms';
+import { contains } from 'ngx-valid';
+
+const control = new FormControl('hello world');
+const validator = contains('world');
+const result = validator(control); // null (valid)
+
+const validator2 = contains('foo');
+const result2 = validator2(control); // validation error
+```
+
+**Directive Usage:**
+
+```html
+<input type="text" name="message" valContains="world" [(ngModel)]="message" />
+```
+
+**Options:**
+
+- `ignoreCase?: boolean` - Perform case-insensitive search (default: false)
+- `minOccurrences?: number` - Minimum number of occurrences required (default: 1)
+
+**Examples:**
+
+```typescript
+// Case-insensitive search
+contains('WORLD', { ignoreCase: true });
+
+// Require multiple occurrences
+contains('a', { minOccurrences: 3 });
+
+// Combined options
+contains('test', { ignoreCase: true, minOccurrences: 2 });
+```
+
+**Directive with options:**
+
+```html
+<input
+  type="text"
+  valContains="world"
+  [valContainsOptions]="{ ignoreCase: true, minOccurrences: 2 }"
+  [(ngModel)]="message"
+/>
+```
