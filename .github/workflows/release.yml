@@ -25,6 +25,12 @@ jobs:
       - name: Build library
         run: npm run build
 
+      - name: Build demo app
+        run: ng build demo --output-path dist/demo
+
+      - name: Deploy demo to GitHub Pages
+        run: npm run deploy
+
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
