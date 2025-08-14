@@ -15,7 +15,14 @@ interface ContainsOptions {
   minOccurrences: number;
 }
 
-type CreditCardProvider = 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa';
+type CreditCardProvider =
+  | 'amex'
+  | 'dinersclub'
+  | 'discover'
+  | 'jcb'
+  | 'mastercard'
+  | 'unionpay'
+  | 'visa';
 
 interface IsCreditCardOptions {
   provider?: CreditCardProvider;
@@ -40,12 +47,15 @@ export class App {
   // Contains validator state
   containsText = signal('');
   containsSearch = signal('hello');
-  containsOptions = signal<ContainsOptions>({ ignoreCase: false, minOccurrences: 1 });
+  containsOptions = signal<ContainsOptions>({
+    ignoreCase: false,
+    minOccurrences: 1,
+  });
 
-  // Equals validator state  
+  // Equals validator state
   equalsText = signal('');
   equalsComparison = signal('exact-match');
-  
+
   // Password confirmation example
   password = signal('');
   confirmPassword = signal('');
@@ -68,17 +78,19 @@ export class App {
 
   updateContainsIgnoreCase(event: Event) {
     const checked = (event.target as HTMLInputElement).checked;
-    this.containsOptions.update(opts => ({ ...opts, ignoreCase: checked }));
+    this.containsOptions.update((opts) => ({ ...opts, ignoreCase: checked }));
   }
 
   updateContainsMinOccurrences(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     const num = parseInt(value) || 1;
-    this.containsOptions.update(opts => ({ ...opts, minOccurrences: num }));
+    this.containsOptions.update((opts) => ({ ...opts, minOccurrences: num }));
   }
 
   updateCreditCardProvider(event: Event) {
-    const provider = (event.target as HTMLSelectElement).value as CreditCardProvider | '';
+    const provider = (event.target as HTMLSelectElement).value as
+      | CreditCardProvider
+      | '';
     this.creditCardProvider.set(provider);
     this.creditCardOptions.set(provider ? { provider } : {});
   }

@@ -6,17 +6,17 @@ describe('isLuhnNumber Validator', () => {
     const validNumbers = [
       '4111111111111111', // Visa
       '5555555555554444', // Mastercard
-      '378282246310005',  // Amex
+      '378282246310005', // Amex
       '6011111111111117', // Discover
-      '30569309025904',   // Diners Club
+      '30569309025904', // Diners Club
       '3530111333300000', // JCB
       '4000000000000002', // Visa test
-      '79927398713',      // Random valid Luhn
-      '49927398716',      // Random valid Luhn
+      '79927398713', // Random valid Luhn
+      '49927398716', // Random valid Luhn
       '1234567890123452', // Random valid Luhn
     ];
 
-    validNumbers.forEach(number => {
+    validNumbers.forEach((number) => {
       it(`should validate ${number} as a valid Luhn number`, () => {
         const control = new FormControl(number);
         const validator = isLuhnNumber();
@@ -29,20 +29,20 @@ describe('isLuhnNumber Validator', () => {
     const invalidNumbers = [
       '4111111111111112', // Wrong checksum
       '5555555555554445', // Wrong checksum
-      '378282246310006',  // Wrong checksum
+      '378282246310006', // Wrong checksum
       '1234567890123456', // Wrong checksum
       '0000000000000000', // All zeros (invalid Luhn)
       '1111111111111111', // All ones (invalid Luhn)
-      '12345',            // Too short but wrong checksum
-      '79927398714',      // Wrong checksum
+      '12345', // Too short but wrong checksum
+      '79927398714', // Wrong checksum
     ];
 
-    invalidNumbers.forEach(number => {
+    invalidNumbers.forEach((number) => {
       it(`should invalidate ${number} as an invalid Luhn number`, () => {
         const control = new FormControl(number);
         const validator = isLuhnNumber();
         expect(validator(control)).toEqual({
-          isLuhnNumber: { actualValue: number }
+          isLuhnNumber: { actualValue: number },
         });
       });
     });
@@ -71,7 +71,7 @@ describe('isLuhnNumber Validator', () => {
       const control = new FormControl('4111 1111 1111 1112');
       const validator = isLuhnNumber();
       expect(validator(control)).toEqual({
-        isLuhnNumber: { actualValue: '4111 1111 1111 1112' }
+        isLuhnNumber: { actualValue: '4111 1111 1111 1112' },
       });
     });
   });
@@ -81,7 +81,10 @@ describe('isLuhnNumber Validator', () => {
       const control = new FormControl('411111111111111a');
       const validator = isLuhnNumber();
       expect(validator(control)).toEqual({
-        isLuhnNumber: { actualValue: '411111111111111a', invalidCharacter: 'a' }
+        isLuhnNumber: {
+          actualValue: '411111111111111a',
+          invalidCharacter: 'a',
+        },
       });
     });
 
@@ -89,7 +92,10 @@ describe('isLuhnNumber Validator', () => {
       const control = new FormControl('4111111111111111!');
       const validator = isLuhnNumber();
       expect(validator(control)).toEqual({
-        isLuhnNumber: { actualValue: '4111111111111111!', invalidCharacter: '!' }
+        isLuhnNumber: {
+          actualValue: '4111111111111111!',
+          invalidCharacter: '!',
+        },
       });
     });
   });
@@ -129,7 +135,7 @@ describe('isLuhnNumber Validator', () => {
       const control = new FormControl('5');
       const validator = isLuhnNumber();
       expect(validator(control)).toEqual({
-        isLuhnNumber: { actualValue: '5' }
+        isLuhnNumber: { actualValue: '5' },
       }); // Single 5 is not valid Luhn
     });
   });
@@ -145,7 +151,7 @@ describe('isLuhnNumber Validator', () => {
       const control = new FormControl('41111111111111111117'); // 20 digit invalid Luhn
       const validator = isLuhnNumber();
       expect(validator(control)).toEqual({
-        isLuhnNumber: { actualValue: '41111111111111111117' }
+        isLuhnNumber: { actualValue: '41111111111111111117' },
       });
     });
   });

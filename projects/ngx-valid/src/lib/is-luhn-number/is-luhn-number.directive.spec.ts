@@ -53,7 +53,7 @@ describe('IsLuhnNumberDirective', () => {
       const form = fixture.debugElement.children[0].injector.get(NgForm);
       expect(form.controls['luhnNumber'].valid).toBe(false);
       expect(form.controls['luhnNumber'].errors).toEqual({
-        isLuhnNumber: { actualValue: '4111111111111112' }
+        isLuhnNumber: { actualValue: '4111111111111112' },
       });
     });
   });
@@ -78,7 +78,10 @@ describe('IsLuhnNumberDirective', () => {
       const form = fixture.debugElement.children[0].injector.get(NgForm);
       expect(form.controls['luhnNumber'].valid).toBe(false);
       expect(form.controls['luhnNumber'].errors).toEqual({
-        isLuhnNumber: { actualValue: '411111111111111a', invalidCharacter: 'a' }
+        isLuhnNumber: {
+          actualValue: '411111111111111a',
+          invalidCharacter: 'a',
+        },
       });
     });
   });

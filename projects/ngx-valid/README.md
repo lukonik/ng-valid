@@ -302,8 +302,8 @@ Validates credit card numbers using industry-standard patterns and Luhn algorith
 
 #### Options
 
-| Option     | Type                                                                    | Default | Description                                      |
-| ---------- | ----------------------------------------------------------------------- | ------- | ------------------------------------------------ |
+| Option     | Type                                                                                    | Default     | Description                                         |
+| ---------- | --------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------- |
 | `provider` | `'amex' \| 'dinersclub' \| 'discover' \| 'jcb' \| 'mastercard' \| 'unionpay' \| 'visa'` | `undefined` | Optional specific card provider to validate against |
 
 #### Examples
@@ -332,10 +332,10 @@ isCreditCard({ provider: 'amex' });
 <input valIsCreditCard="visa" [(ngModel)]="creditCardNumber" />
 
 <!-- With options -->
-<input 
+<input
   valIsCreditCard
   [valIsCreditCardOptions]="{ provider: 'mastercard' }"
-  [(ngModel)]="creditCardNumber" 
+  [(ngModel)]="creditCardNumber"
 />
 ```
 
@@ -383,14 +383,8 @@ isLuhnNumber();
 <input valIsLuhnNumber [(ngModel)]="luhnNumber" />
 
 <!-- With validation feedback -->
-<input 
-  valIsLuhnNumber 
-  [(ngModel)]="luhnNumber" 
-  #luhnInput="ngModel"
-/>
-<div *ngIf="luhnInput.errors?.['isLuhnNumber']">
-  Invalid Luhn number
-</div>
+<input valIsLuhnNumber [(ngModel)]="luhnNumber" #luhnInput="ngModel" />
+<div *ngIf="luhnInput.errors?.['isLuhnNumber']">Invalid Luhn number</div>
 ```
 
 **Reactive Forms Example:**
@@ -407,12 +401,14 @@ const form = new FormGroup({
 **How Luhn Algorithm Works:**
 
 The Luhn algorithm validates identification numbers by:
+
 1. Starting from the rightmost digit, double every second digit
 2. If doubling results in a two-digit number, add the digits together
 3. Sum all digits
 4. If the total is divisible by 10, the number is valid
 
 **Test Numbers:**
+
 - **Valid**: `79927398713`, `49927398716`, `4111111111111111`
 - **Invalid**: `79927398714`, `1234567890123456`
 

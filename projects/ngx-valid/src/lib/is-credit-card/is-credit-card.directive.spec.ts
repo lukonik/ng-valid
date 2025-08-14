@@ -7,26 +7,26 @@ import { IsCreditCardDirective } from './is-credit-card.directive';
 @Component({
   template: `
     <form #form="ngForm">
-      <input 
-        name="creditCard" 
-        valIsCreditCard 
-        [(ngModel)]="creditCard" 
-        #creditCardInput="ngModel" 
+      <input
+        name="creditCard"
+        valIsCreditCard
+        [(ngModel)]="creditCard"
+        #creditCardInput="ngModel"
       />
-      
-      <input 
-        name="visaCard" 
+
+      <input
+        name="visaCard"
         valIsCreditCard="visa"
-        [(ngModel)]="visaCard" 
-        #visaCardInput="ngModel" 
+        [(ngModel)]="visaCard"
+        #visaCardInput="ngModel"
       />
-      
-      <input 
-        name="cardWithOptions" 
+
+      <input
+        name="cardWithOptions"
         valIsCreditCard
         [valIsCreditCardOptions]="{ provider: 'mastercard' }"
-        [(ngModel)]="cardWithOptions" 
-        #cardWithOptionsInput="ngModel" 
+        [(ngModel)]="cardWithOptions"
+        #cardWithOptionsInput="ngModel"
       />
     </form>
   `,
@@ -71,7 +71,7 @@ describe('IsCreditCardDirective', () => {
       const form = fixture.debugElement.children[0].injector.get(NgForm);
       expect(form.controls['creditCard'].valid).toBe(false);
       expect(form.controls['creditCard'].errors).toEqual({
-        isCreditCard: jasmine.any(Object)
+        isCreditCard: jasmine.any(Object),
       });
     });
   });
@@ -96,8 +96,8 @@ describe('IsCreditCardDirective', () => {
       expect(form.controls['visaCard'].errors).toEqual({
         isCreditCard: {
           actualValue: '5555555555554444',
-          provider: 'visa'
-        }
+          provider: 'visa',
+        },
       });
     });
 
@@ -120,8 +120,8 @@ describe('IsCreditCardDirective', () => {
       expect(form.controls['cardWithOptions'].errors).toEqual({
         isCreditCard: {
           actualValue: '4111111111111111',
-          provider: 'mastercard'
-        }
+          provider: 'mastercard',
+        },
       });
     });
   });

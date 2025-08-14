@@ -2,7 +2,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 /**
  * Configuration options for the contains validator.
- * 
+ *
  * @since 1.0.0
  */
 export interface ContainsOptions {
@@ -11,7 +11,7 @@ export interface ContainsOptions {
    * @default false
    */
   ignoreCase?: boolean;
-  
+
   /**
    * Minimum number of occurrences required.
    * @default 1
@@ -21,46 +21,46 @@ export interface ContainsOptions {
 
 /**
  * Validates that a string contains a specific substring.
- * 
+ *
  * This validator checks if the input string contains a specified substring
  * with configurable case sensitivity and minimum occurrence requirements.
  * Based on the validator.js contains implementation.
- * 
+ *
  * @param element - The substring to search for
  * @param options - Configuration options for the validation
  * @param options.ignoreCase - Whether to perform case-insensitive search (default: false)
  * @param options.minOccurrences - Minimum number of occurrences required (default: 1)
- * 
+ *
  * @returns A validator function that returns null for valid strings or a validation error object
- * 
+ *
  * @example
  * ```typescript
  * // Basic usage - must contain 'hello'
  * const basicValidator = contains('hello');
- * 
+ *
  * // Case insensitive search
  * const caseInsensitiveValidator = contains('HELLO', { ignoreCase: true });
- * 
+ *
  * // Require multiple occurrences
  * const multipleValidator = contains('test', { minOccurrences: 2 });
- * 
+ *
  * // Use in reactive forms
  * const form = new FormGroup({
  *   message: new FormControl('', [contains('hello', { ignoreCase: true })]),
  * });
  * ```
- * 
+ *
  * @example
  * ```html
  * <!-- Template-driven forms -->
  * <input valContains="world" [(ngModel)]="text" />
- * <input 
+ * <input
  *   valContains="hello"
  *   [valContainsOptions]="{ ignoreCase: true, minOccurrences: 2 }"
- *   [(ngModel)]="text" 
+ *   [(ngModel)]="text"
  * />
  * ```
- * 
+ *
  * @since 1.0.0
  */
 export function contains(

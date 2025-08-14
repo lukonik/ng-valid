@@ -9,31 +9,31 @@ describe('isCreditCard Validator', () => {
       '4012888888881881',
       '4222222222222',
       '4242424242424242',
-      
+
       // Mastercard
       '5555555555554444',
       '5105105105105100',
       '2223003122003222',
-      
+
       // American Express
       '378282246310005',
       '371449635398431',
       '378734493671000',
-      
+
       // Discover
       '6011111111111117',
       '6011000990139424',
-      
+
       // Diners Club
       '30569309025904',
       '38520000023237',
-      
+
       // JCB
       '3530111333300000',
       '3566002020360505',
     ];
 
-    validCards.forEach(card => {
+    validCards.forEach((card) => {
       it(`should validate ${card} as a valid credit card`, () => {
         const control = new FormControl(card);
         const validator = isCreditCard();
@@ -54,12 +54,12 @@ describe('isCreditCard Validator', () => {
       '0000000000000000', // All zeros
     ];
 
-    invalidCards.forEach(card => {
+    invalidCards.forEach((card) => {
       it(`should invalidate ${card} as an invalid credit card`, () => {
         const control = new FormControl(card);
         const validator = isCreditCard();
         expect(validator(control)).toEqual({
-          isCreditCard: jasmine.any(Object)
+          isCreditCard: jasmine.any(Object),
         });
       });
     });
@@ -78,8 +78,8 @@ describe('isCreditCard Validator', () => {
       expect(validator(control)).toEqual({
         isCreditCard: {
           actualValue: '5555555555554444',
-          provider: 'visa'
-        }
+          provider: 'visa',
+        },
       });
     });
 
@@ -116,6 +116,7 @@ describe('isCreditCard Validator', () => {
     it('should throw error for invalid provider', () => {
       const control = new FormControl('4111111111111111');
       expect(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const validator = isCreditCard({ provider: 'invalid' as any });
         validator(control);
       }).toThrow('invalid is not a valid credit card provider.');
@@ -150,8 +151,8 @@ describe('isCreditCard Validator', () => {
       expect(result).toEqual({
         isCreditCard: {
           actualValue: '4111111111111112',
-          luhnValid: false
-        }
+          luhnValid: false,
+        },
       });
     });
 
