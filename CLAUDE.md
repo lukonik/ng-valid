@@ -21,7 +21,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - create a folder called [validationName] (use dashcase if neccessary)
 - create a file called [validationName].ts, that will implement and export function of the validation, use Angular custom validation style guide
 - create a file called [validationName].directive.ts that will implement Angular Forms Custom Validation directive, use function validation internally to handle the validation
-- export both of them to public-api.ts
+- export both validation function and directive to public-api.ts (always export directives for easier consumption)
 - add documentation in README.md, add the link in the list that will navigate to the correct section
 - whenever you modify README.md, always sync it with projects/ngx-valid/README.md file
 - write comprehensive unit tests
