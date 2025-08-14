@@ -95,11 +95,19 @@ describe('contains validator', () => {
       });
     });
 
-    it('should count overlapping occurrences correctly', () => {
+    it('should not count overlapping occurrences (matches validator.js behavior)', () => {
       const control = new FormControl('aaa');
       const validator = contains('aa', { minOccurrences: 2 });
 
-      expect(validator(control)).toBeNull();
+      const result = validator(control);
+      expect(result).toEqual({
+        contains: {
+          requiredElement: 'aa',
+          actualValue: 'aaa',
+          minOccurrences: 2,
+          actualOccurrences: 1,
+        },
+      });
     });
 
     it('should handle zero occurrences requirement', () => {

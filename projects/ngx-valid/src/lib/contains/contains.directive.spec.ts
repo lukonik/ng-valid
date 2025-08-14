@@ -1,7 +1,10 @@
-import { Component, signal } from '@angular/core';
+import {
+  Component,
+  provideZonelessChangeDetection,
+  signal,
+} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, NgForm } from '@angular/forms';
-import { provideZonelessChangeDetection } from '@angular/core';
 import { ContainsDirective } from './contains.directive';
 
 @Component({

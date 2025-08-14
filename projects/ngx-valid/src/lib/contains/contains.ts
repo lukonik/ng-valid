@@ -20,7 +20,7 @@ export function contains(
       return null; // Don't validate empty values to allow optional controls
     }
 
-    const value = String(control.value);
+    const str = String(control.value);
     const defaultOptions: Required<ContainsOptions> = {
       ignoreCase: false,
       minOccurrences: 1,
@@ -28,33 +28,32 @@ export function contains(
 
     const opts = { ...defaultOptions, ...options };
 
-    let searchValue = value;
-    let searchElement = element;
+    // Convert element to string (matching validator.js toString behavior)
+    const elem = String(element);
 
+    let isValid: boolean;
+
+    // Match validator.js implementation exactly
     if (opts.ignoreCase) {
-      searchValue = value.toLowerCase();
-      searchElement = element.toLowerCase();
+      isValid =
+        str.toLowerCase().split(elem.toLowerCase()).length >
+        opts.minOccurrences;
+    } else {
+      isValid = str.split(elem).length > opts.minOccurrences;
     }
 
-    // Count occurrences (including overlapping ones)
-    let occurrences = 0;
-    let startIndex = 0;
+    if (!isValid) {
+      // Calculate actual occurrences for error reporting
+      const actualOccurrences = opts.ignoreCase
+        ? str.toLowerCase().split(elem.toLowerCase()).length - 1
+        : str.split(elem).length - 1;
 
-    while (true) {
-      const foundIndex = searchValue.indexOf(searchElement, startIndex);
-      if (foundIndex === -1) break;
-
-      occurrences++;
-      startIndex = foundIndex + 1; // Move by 1 to catch overlapping matches
-    }
-
-    if (occurrences < opts.minOccurrences) {
       return {
         contains: {
           requiredElement: element,
-          actualValue: value,
+          actualValue: str,
           minOccurrences: opts.minOccurrences,
-          actualOccurrences: occurrences,
+          actualOccurrences: actualOccurrences,
         },
       };
     }
