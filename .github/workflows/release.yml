@@ -25,13 +25,18 @@ jobs:
       - name: Build library
         run: npm run build
 
-      - name: Deploy demo to GitHub Pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run deploy
-
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run semantic-release
+
+      - name: Configure git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy demo to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run deploy
