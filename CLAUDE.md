@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - ngx-valid project is inside projects/ngx-valid directory
 
-## Implementation Details (when I ask to add new validation do the following)
+## Implementation Details
 
 - create new branch from latest main
 - follow instructions.md style guide for implementation
