@@ -22,3 +22,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - add documentation in README.md, add the link in the list that will navigate to the correct section
 - write comprehensive unit tests
 - run npm run check to validate that everything passes, if not fix them and rerun again
+- create a PR
