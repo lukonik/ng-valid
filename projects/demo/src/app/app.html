@@ -44,7 +44,11 @@
   <div class="container">
     <div class="intro">
       <h2>Modern Angular Validation Library</h2>
-      <p>Explore all validators with live examples and interactive configuration options. Try changing the options to see how each validator behaves in real-time.</p>
+      <p>
+        Explore all validators with live examples and interactive configuration
+        options. Try changing the options to see how each validator behaves in
+        real-time.
+      </p>
     </div>
 
     <!-- Contains Validator -->
@@ -55,9 +59,10 @@
           <span class="validator-badge">String Validation</span>
         </div>
         <p class="validator-description">
-          Validates that a string contains a specific substring. Supports case-insensitive search and minimum occurrence requirements.
+          Validates that a string contains a specific substring. Supports
+          case-insensitive search and minimum occurrence requirements.
         </p>
-        
+
         <div class="demo-grid">
           <div class="demo-inputs">
             <div class="input-group">
@@ -74,9 +79,12 @@
               />
               <div class="validation-status">
                 @if (containsInput.errors?.['contains']) {
-                  <div class="error">❌ Must contain "{{ containsSearch() }}"</div>
-                } @else if (containsText() && !containsInput.errors?.['contains']) {
-                  <div class="success">✅ Valid!</div>
+                <div class="error">
+                  ❌ Must contain "{{ containsSearch() }}"
+                </div>
+                } @else if (containsText() &&
+                !containsInput.errors?.['contains']) {
+                <div class="success">✅ Valid!</div>
                 }
               </div>
             </div>
@@ -94,7 +102,7 @@
                 class="option-input"
               />
             </div>
-            
+
             <div class="option-group">
               <label class="checkbox-label">
                 <input
@@ -105,7 +113,7 @@
                 Ignore case
               </label>
             </div>
-            
+
             <div class="option-group">
               <label for="contains-min-occurrences">Minimum occurrences:</label>
               <input
@@ -130,9 +138,10 @@
           <span class="validator-badge">String Validation</span>
         </div>
         <p class="validator-description">
-          Validates that a string exactly equals a specific comparison value. Perfect for exact matches and confirmations.
+          Validates that a string exactly equals a specific comparison value.
+          Perfect for exact matches and confirmations.
         </p>
-        
+
         <div class="demo-grid">
           <div class="demo-inputs">
             <div class="input-group">
@@ -148,9 +157,11 @@
               />
               <div class="validation-status">
                 @if (equalsInput.errors?.['equals']) {
-                  <div class="error">❌ Must exactly equal "{{ equalsComparison() }}"</div>
+                <div class="error">
+                  ❌ Must exactly equal "{{ equalsComparison() }}"
+                </div>
                 } @else if (equalsText() && !equalsInput.errors?.['equals']) {
-                  <div class="success">✅ Perfect match!</div>
+                <div class="success">✅ Perfect match!</div>
                 }
               </div>
             </div>
@@ -187,7 +198,7 @@
                   class="demo-input"
                 />
               </div>
-              
+
               <div class="input-group">
                 <label for="confirm-password">Confirm Password:</label>
                 <input
@@ -201,15 +212,19 @@
                 />
                 <div class="validation-status">
                   @if (confirmPwdInput.errors?.['equals']) {
-                    <div class="error">❌ Passwords do not match</div>
-                  } @else if (confirmPassword() && password() && !confirmPwdInput.errors?.['equals']) {
-                    <div class="success">✅ Passwords match!</div>
+                  <div class="error">❌ Passwords do not match</div>
+                  } @else if (confirmPassword() && password() &&
+                  !confirmPwdInput.errors?.['equals']) {
+                  <div class="success">✅ Passwords match!</div>
                   }
                 </div>
               </div>
             </div>
             <div class="demo-options">
-              <p class="example-note">This example shows how to use equals validator for password confirmation.</p>
+              <p class="example-note">
+                This example shows how to use equals validator for password
+                confirmation.
+              </p>
             </div>
           </div>
         </div>
@@ -224,9 +239,10 @@
           <span class="validator-badge">Date Validation</span>
         </div>
         <p class="validator-description">
-          Validates that a date is after a specific comparison date. Supports both Date objects and string date inputs with timezone handling.
+          Validates that a date is after a specific comparison date. Supports
+          both Date objects and string date inputs with timezone handling.
         </p>
-        
+
         <div class="demo-grid">
           <div class="demo-inputs">
             <div class="input-group">
@@ -241,9 +257,11 @@
               />
               <div class="validation-status">
                 @if (afterInput.errors?.['isAfter']) {
-                  <div class="error">❌ Must be after {{ afterComparisonDate() }}</div>
+                <div class="error">
+                  ❌ Must be after {{ afterComparisonDate() }}
+                </div>
                 } @else if (afterDate() && !afterInput.errors?.['isAfter']) {
-                  <div class="success">✅ Date is valid!</div>
+                <div class="success">✅ Date is valid!</div>
                 }
               </div>
             </div>
@@ -273,9 +291,10 @@
           <span class="validator-badge">Date Validation</span>
         </div>
         <p class="validator-description">
-          Validates that a date is before a specific comparison date. Perfect for start dates, expiration dates, and date range validation.
+          Validates that a date is before a specific comparison date. Perfect
+          for start dates, expiration dates, and date range validation.
         </p>
-        
+
         <div class="demo-grid">
           <div class="demo-inputs">
             <div class="input-group">
@@ -290,9 +309,11 @@
               />
               <div class="validation-status">
                 @if (beforeInput.errors?.['isBefore']) {
-                  <div class="error">❌ Must be before {{ beforeComparisonDate() }}</div>
+                <div class="error">
+                  ❌ Must be before {{ beforeComparisonDate() }}
+                </div>
                 } @else if (beforeDate() && !beforeInput.errors?.['isBefore']) {
-                  <div class="success">✅ Date is valid!</div>
+                <div class="success">✅ Date is valid!</div>
                 }
               </div>
             </div>
@@ -313,6 +334,143 @@
         </div>
       </div>
     </section>
+
+    <!-- IsCreditCard Validator -->
+    <section class="validator-section">
+      <div class="validator-card">
+        <div class="validator-header">
+          <h3>IsCreditCard Validator</h3>
+          <span class="validator-badge">Financial Validation</span>
+        </div>
+        <p class="validator-description">
+          Validates credit card numbers using industry-standard patterns and
+          Luhn algorithm verification. Supports all major card providers with
+          optional provider-specific validation.
+        </p>
+
+        <div class="demo-grid">
+          <div class="demo-inputs">
+            <div class="input-group">
+              <label for="credit-card-number">Credit card number:</label>
+              <input
+                id="credit-card-number"
+                type="text"
+                [(ngModel)]="creditCardNumber"
+                [valIsCreditCard]="creditCardProvider()"
+                [valIsCreditCardOptions]="creditCardOptions()"
+                #creditCardInput="ngModel"
+                placeholder="Enter credit card number..."
+                class="demo-input"
+              />
+              <div class="validation-status">
+                @if (creditCardInput.errors?.['isCreditCard']) {
+                <div class="error">❌ Invalid credit card number</div>
+                } @else if (creditCardNumber() &&
+                !creditCardInput.errors?.['isCreditCard']) {
+                <div class="success">✅ Valid credit card!</div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-options">
+            <h4>Configuration Options</h4>
+            <div class="option-group">
+              <label for="credit-card-provider"
+                >Card provider (optional):</label
+              >
+              <select
+                id="credit-card-provider"
+                [value]="creditCardProvider()"
+                (change)="updateCreditCardProvider($event)"
+                class="option-input"
+              >
+                <option value="">Any Provider</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">Mastercard</option>
+                <option value="amex">American Express</option>
+                <option value="discover">Discover</option>
+                <option value="dinersclub">Diners Club</option>
+                <option value="jcb">JCB</option>
+                <option value="unionpay">UnionPay</option>
+              </select>
+            </div>
+
+            <div class="example-cards">
+              <h5>Test Card Numbers</h5>
+              <p class="test-card"><strong>Visa:</strong> 4111111111111111</p>
+              <p class="test-card">
+                <strong>Mastercard:</strong> 5555555555554444
+              </p>
+              <p class="test-card"><strong>Amex:</strong> 378282246310005</p>
+              <p class="test-card">
+                <strong>Discover:</strong> 6011111111111117
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IsLuhnNumber Validator -->
+    <section class="validator-section">
+      <div class="validator-card">
+        <div class="validator-header">
+          <h3>IsLuhnNumber Validator</h3>
+          <span class="validator-badge">Algorithm Validation</span>
+        </div>
+        <p class="validator-description">
+          Validates numbers using the Luhn algorithm (mod-10 checksum). Commonly
+          used for credit cards, IMEI numbers, and other identification numbers
+          that require checksum validation.
+        </p>
+
+        <div class="demo-grid">
+          <div class="demo-inputs">
+            <div class="input-group">
+              <label for="luhn-number">Number to validate:</label>
+              <input
+                id="luhn-number"
+                type="text"
+                [(ngModel)]="luhnNumber"
+                valIsLuhnNumber
+                #luhnInput="ngModel"
+                placeholder="Enter a number to check..."
+                class="demo-input"
+              />
+              <div class="validation-status">
+                @if (luhnInput.errors?.['isLuhnNumber']) {
+                <div class="error">❌ Invalid Luhn number</div>
+                } @else if (luhnNumber() && !luhnInput.errors?.['isLuhnNumber'])
+                {
+                <div class="success">✅ Valid Luhn number!</div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-options">
+            <h4>About Luhn Algorithm</h4>
+            <p class="algorithm-description">
+              The Luhn algorithm is a checksum formula used to validate
+              identification numbers. It works by doubling every second digit
+              from right to left, then summing all digits. If the total is
+              divisible by 10, the number is valid.
+            </p>
+
+            <div class="example-numbers">
+              <h5>Test Numbers</h5>
+              <p class="test-number"><strong>Valid:</strong> 79927398713</p>
+              <p class="test-number"><strong>Valid:</strong> 49927398716</p>
+              <p class="test-number"><strong>Invalid:</strong> 79927398714</p>
+              <p class="test-number">
+                <strong>Invalid:</strong> 1234567890123456
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </main>
 
@@ -321,15 +479,27 @@
   <div class="container">
     <p>&copy; 2025 ngx-valid - Modern Angular Validation Library</p>
     <div class="footer-links">
-      <a href="https://github.com/lukonik/ngx-valid" target="_blank" rel="noopener">
+      <a
+        href="https://github.com/lukonik/ngx-valid"
+        target="_blank"
+        rel="noopener"
+      >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+          />
         </svg>
         GitHub
       </a>
-      <a href="https://www.npmjs.com/package/ngx-valid" target="_blank" rel="noopener">
+      <a
+        href="https://www.npmjs.com/package/ngx-valid"
+        target="_blank"
+        rel="noopener"
+      >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z"/>
+          <path
+            d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z"
+          />
         </svg>
         NPM
       </a>

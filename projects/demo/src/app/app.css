@@ -42,7 +42,7 @@ select {
   --primary-700: #be185d;
   --primary-800: #9d174d;
   --primary-900: #831843;
-  
+
   --secondary-50: #f0f9ff;
   --secondary-100: #e0f2fe;
   --secondary-200: #bae6fd;
@@ -53,7 +53,7 @@ select {
   --secondary-700: #0369a1;
   --secondary-800: #075985;
   --secondary-900: #0c4a6e;
-  
+
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -64,19 +64,30 @@ select {
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
-  
+
   --success: #10b981;
   --error: #ef4444;
   --warning: #f59e0b;
-  
-  --gradient: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
+
+  --gradient: linear-gradient(
+    135deg,
+    var(--primary-500) 0%,
+    var(--secondary-500) 100%
+  );
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl:
+    0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Monaco, 'Cascadia Code',
+    'Roboto Mono', 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New',
+    monospace;
 }
 
 /* Global Styles */
@@ -311,7 +322,7 @@ body {
   font-size: 0.875rem;
 }
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type='checkbox'] {
   width: 1rem;
   height: 1rem;
   accent-color: var(--primary-500);
@@ -376,41 +387,41 @@ body {
   .container {
     padding: 0 0.75rem;
   }
-  
+
   .header {
     padding: 1.5rem 0;
   }
-  
+
   .header h1 {
     font-size: 2rem;
   }
-  
+
   .header p {
     font-size: 1rem;
   }
-  
+
   .intro h2 {
     font-size: 1.5rem;
   }
-  
+
   .intro p {
     font-size: 1rem;
   }
-  
+
   .validator-card {
     padding: 1.5rem;
   }
-  
+
   .validator-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-  
+
   .validator-header h3 {
     font-size: 1.25rem;
   }
-  
+
   .footer-links {
     flex-direction: column;
     gap: 1rem;
@@ -447,4 +458,75 @@ body {
 
 .validator-section:nth-child(4) .validator-card {
   animation-delay: 0.4s;
+}
+
+.validator-section:nth-child(5) .validator-card {
+  animation-delay: 0.5s;
+}
+
+.validator-section:nth-child(6) .validator-card {
+  animation-delay: 0.6s;
+}
+
+/* Credit Card Demo Styles */
+.example-cards {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--gray-50);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-200);
+}
+
+.example-cards h5 {
+  color: var(--gray-700);
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.test-card {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin: 0.25rem 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.test-card strong {
+  color: var(--gray-700);
+  font-weight: 600;
+}
+
+/* Luhn Number Demo Styles */
+.algorithm-description {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.example-numbers {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--gray-50);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-200);
+}
+
+.example-numbers h5 {
+  color: var(--gray-700);
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.test-number {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin: 0.25rem 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.test-number strong {
+  color: var(--gray-700);
+  font-weight: 600;
 }

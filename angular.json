@@ -57,9 +57,7 @@
                 "input": "projects/demo/public"
               }
             ],
-            "styles": [
-              "projects/demo/src/styles.css"
-            ],
+            "styles": ["projects/demo/src/styles.css"],
             "server": "projects/demo/src/main.server.ts",
             "outputMode": "server",
             "ssr": {
@@ -115,9 +113,7 @@
                 "input": "projects/demo/public"
               }
             ],
-            "styles": [
-              "projects/demo/src/styles.css"
-            ]
+            "styles": ["projects/demo/src/styles.css"]
           }
         },
         "lint": {
@@ -130,7 +126,7 @@
             "eslintConfig": "projects/demo/eslint.config.js"
           }
         },
-         "deploy": {
+        "deploy": {
           "builder": "angular-cli-ghpages:deploy"
         }
       }
@@ -138,8 +134,6 @@
   },
   "cli": {
     "analytics": "87be86f4-36a4-49da-93b4-98bfbcb19d9e",
-    "schematicCollections": [
-      "angular-eslint"
-    ]
+    "schematicCollections": ["angular-eslint"]
   }
 }

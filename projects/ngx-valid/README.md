@@ -68,6 +68,8 @@ const form = new FormGroup({
 - [Equals](#equals-validator) - Validates that a string exactly equals a specific value
 - [IsAfter](#isafter-validator) - Validates that a date is after a specific comparison date
 - [IsBefore](#isbefore-validator) - Validates that a date is before a specific comparison date
+- [IsCreditCard](#iscreditcard-validator) - Validates credit card numbers with industry-standard patterns and Luhn algorithm
+- [IsLuhnNumber](#isluhn-validator) - Validates numbers using the Luhn algorithm (mod-10 checksum)
 
 ### Contains Validator
 
@@ -293,6 +295,122 @@ form
   .get('startDate')
   ?.setValidators([isBefore({ comparisonDate: form.get('endDate')?.value })]);
 ```
+
+### IsCreditCard Validator
+
+Validates credit card numbers using industry-standard patterns and Luhn algorithm verification. Supports all major card providers with optional provider-specific validation.
+
+#### Options
+
+| Option     | Type                                                                                    | Default     | Description                                         |
+| ---------- | --------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------- |
+| `provider` | `'amex' \| 'dinersclub' \| 'discover' \| 'jcb' \| 'mastercard' \| 'unionpay' \| 'visa'` | `undefined` | Optional specific card provider to validate against |
+
+#### Examples
+
+**Basic Usage:**
+
+```typescript
+import { isCreditCard } from 'ngx-valid';
+
+// Validate any credit card
+isCreditCard();
+
+// Validate specific provider
+isCreditCard({ provider: 'visa' });
+isCreditCard({ provider: 'mastercard' });
+isCreditCard({ provider: 'amex' });
+```
+
+**Template Directive:**
+
+```html
+<!-- Basic usage - any provider -->
+<input valIsCreditCard [(ngModel)]="creditCardNumber" />
+
+<!-- Specific provider -->
+<input valIsCreditCard="visa" [(ngModel)]="creditCardNumber" />
+
+<!-- With options -->
+<input
+  valIsCreditCard
+  [valIsCreditCardOptions]="{ provider: 'mastercard' }"
+  [(ngModel)]="creditCardNumber"
+/>
+```
+
+**Reactive Forms Example:**
+
+```typescript
+import { FormControl, FormGroup } from '@angular/forms';
+import { isCreditCard } from 'ngx-valid';
+
+const form = new FormGroup({
+  creditCard: new FormControl('', [isCreditCard()]),
+  visaCard: new FormControl('', [isCreditCard({ provider: 'visa' })]),
+});
+```
+
+**Supported Card Types:**
+
+- **Visa**: `4111111111111111`
+- **Mastercard**: `5555555555554444`
+- **American Express**: `378282246310005`
+- **Discover**: `6011111111111117`
+- **Diners Club**: `30569309025904`
+- **JCB**: `3530111333300000`
+- **UnionPay**: Supported patterns
+
+### IsLuhnNumber Validator
+
+Validates numbers using the Luhn algorithm (mod-10 checksum). Commonly used for credit cards, IMEI numbers, and other identification numbers that require checksum validation.
+
+#### Examples
+
+**Basic Usage:**
+
+```typescript
+import { isLuhnNumber } from 'ngx-valid';
+
+// Validate Luhn number
+isLuhnNumber();
+```
+
+**Template Directive:**
+
+```html
+<!-- Basic usage -->
+<input valIsLuhnNumber [(ngModel)]="luhnNumber" />
+
+<!-- With validation feedback -->
+<input valIsLuhnNumber [(ngModel)]="luhnNumber" #luhnInput="ngModel" />
+<div *ngIf="luhnInput.errors?.['isLuhnNumber']">Invalid Luhn number</div>
+```
+
+**Reactive Forms Example:**
+
+```typescript
+import { FormControl, FormGroup } from '@angular/forms';
+import { isLuhnNumber } from 'ngx-valid';
+
+const form = new FormGroup({
+  luhnNumber: new FormControl('', [isLuhnNumber()]),
+});
+```
+
+**How Luhn Algorithm Works:**
+
+The Luhn algorithm validates identification numbers by:
+
+1. Starting from the rightmost digit, double every second digit
+2. If doubling results in a two-digit number, add the digits together
+3. Sum all digits
+4. If the total is divisible by 10, the number is valid
+
+**Test Numbers:**
+
+- **Valid**: `79927398713`, `49927398716`, `4111111111111111`
+- **Invalid**: `79927398714`, `1234567890123456`
 
 ## 🛠️ Development
 
