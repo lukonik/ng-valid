@@ -11,6 +11,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Structure
 
 - ngx-valid project is inside projects/ngx-valid directory
+- demo application is in projects/demo directory
+
+## Common Development Commands
+
+- `npm run check` - Run all checks (lint, format check, test, build)
+- `npm run build` - Build the ngx-valid library
+- `npm run lint` - Run ESLint on the codebase
+- `npm run format:check` - Check code formatting with Prettier
+- `npm run format:write` - Auto-fix formatting issues with Prettier
+- `npm start` - Start the demo application for development
+- `npm run build:demo` - Build the demo application for production
+- `ng test --project=ngx-valid` - Run tests for the library only
+- `ng test --project=ngx-valid --no-watch --no-progress --browsers=ChromeHeadless` - Run tests once in headless mode
 
 ## Implementation Details
 

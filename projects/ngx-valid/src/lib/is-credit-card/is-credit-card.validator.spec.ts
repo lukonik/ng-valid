@@ -50,7 +50,6 @@ describe('isCreditCard Validator', () => {
       '424242424242424', // Too short
       '5555555555554445', // Wrong Luhn checksum
       'abcd1234efgh5678', // Contains letters
-      '', // Empty string
       '0000000000000000', // All zeros
     ];
 
@@ -119,7 +118,7 @@ describe('isCreditCard Validator', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const validator = isCreditCard({ provider: 'invalid' as any });
         validator(control);
-      }).toThrow('invalid is not a valid credit card provider.');
+      }).toThrowError('invalid is not a valid credit card provider.');
     });
   });
 

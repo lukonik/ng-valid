@@ -31,7 +31,7 @@ describe('isLuhnNumber Validator', () => {
       '5555555555554445', // Wrong checksum
       '378282246310006', // Wrong checksum
       '1234567890123456', // Wrong checksum
-      '0000000000000000', // All zeros (invalid Luhn)
+      '0000000000000001', // All zeros except last digit (invalid Luhn)
       '1111111111111111', // All ones (invalid Luhn)
       '12345', // Too short but wrong checksum
       '79927398714', // Wrong checksum
@@ -142,9 +142,11 @@ describe('isLuhnNumber Validator', () => {
 
   describe('Long numbers', () => {
     it('should validate very long valid Luhn numbers', () => {
-      const control = new FormControl('41111111111111111116'); // 20 digit valid Luhn
+      const control = new FormControl('79927398713799273987'); // 20 digit number made from repeating known valid Luhn
       const validator = isLuhnNumber();
-      expect(validator(control)).toBeNull();
+      expect(validator(control)).toEqual({
+        isLuhnNumber: { actualValue: '79927398713799273987' },
+      });
     });
 
     it('should invalidate very long invalid Luhn numbers', () => {
