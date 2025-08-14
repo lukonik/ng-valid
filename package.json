@@ -11,7 +11,8 @@
     "check": "ng lint && npm run format:check && ng test --no-watch --no-progress --browsers=ChromeHeadless --project=ngx-valid && ng build --project=ngx-valid",
     "lint": "ng lint",
     "serve:ssr:demo": "node dist/demo/server/server.mjs",
-    "deploy":"ng deploy --dir dist/demo/browser"
+    "deploy":"ng deploy --dir dist/demo/browser",
+    "build:demo": "ng build demo --configuration production",
   },
   "private": true,
   "dependencies": {
