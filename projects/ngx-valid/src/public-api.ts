@@ -4,4 +4,3 @@
 
 export * from './lib/contains';
 export * from './lib/equals';
-
