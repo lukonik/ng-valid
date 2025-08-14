@@ -9,7 +9,8 @@
     "semantic-release": "semantic-release",
     "build": "ng build --project=ngx-valid",
     "check": "ng lint && npm run format:check && ng test --no-watch --no-progress --browsers=ChromeHeadless --project=ngx-valid && ng build --project=ngx-valid",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "serve:ssr:demo": "node dist/demo/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +19,10 @@
     "@angular/core": "^20.1.0",
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
+    "@angular/platform-server": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "@angular/ssr": "^20.1.6",
+    "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -33,7 +37,9 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.4",
     "@semantic-release/npm": "^12.0.2",
+    "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
+    "@types/node": "^20.17.19",
     "angular-eslint": "20.1.1",
     "eslint": "^9.29.0",
     "jasmine-core": "~5.8.0",

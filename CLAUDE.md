@@ -27,4 +27,5 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - write comprehensive unit tests
 - run npm run check to validate that everything passes (includes linting, formatting, testing, and building), if not fix them and rerun again
 - if there are formatting issues, run npm run format:write to fix them
+- add the validator example to the demo application in projects/demo/src/app/ with interactive options and beautiful styling
 - create a PR with conventional commit format (feat: add [validationName] validation)
