@@ -10,6 +10,8 @@
   [![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-blue?logo=typescript)](https://www.typescriptlang.org)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   
+  **[🚀 Live Demo](https://lukonik.github.io/ngx-valid/) | [📖 Documentation](https://github.com/lukonik/ngx-valid) | [💾 GitHub](https://github.com/lukonik/ngx-valid)**
+  
 </div>
 
 ---
