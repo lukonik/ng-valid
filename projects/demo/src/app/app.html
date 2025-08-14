@@ -313,6 +313,128 @@
         </div>
       </div>
     </section>
+
+    <!-- IsCreditCard Validator -->
+    <section class="validator-section">
+      <div class="validator-card">
+        <div class="validator-header">
+          <h3>IsCreditCard Validator</h3>
+          <span class="validator-badge">Financial Validation</span>
+        </div>
+        <p class="validator-description">
+          Validates credit card numbers using industry-standard patterns and Luhn algorithm verification. Supports all major card providers with optional provider-specific validation.
+        </p>
+        
+        <div class="demo-grid">
+          <div class="demo-inputs">
+            <div class="input-group">
+              <label for="credit-card-number">Credit card number:</label>
+              <input
+                id="credit-card-number"
+                type="text"
+                [(ngModel)]="creditCardNumber"
+                [valIsCreditCard]="creditCardProvider()"
+                [valIsCreditCardOptions]="creditCardOptions()"
+                #creditCardInput="ngModel"
+                placeholder="Enter credit card number..."
+                class="demo-input"
+              />
+              <div class="validation-status">
+                @if (creditCardInput.errors?.['isCreditCard']) {
+                  <div class="error">❌ Invalid credit card number</div>
+                } @else if (creditCardNumber() && !creditCardInput.errors?.['isCreditCard']) {
+                  <div class="success">✅ Valid credit card!</div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-options">
+            <h4>Configuration Options</h4>
+            <div class="option-group">
+              <label for="credit-card-provider">Card provider (optional):</label>
+              <select
+                id="credit-card-provider"
+                [value]="creditCardProvider()"
+                (change)="updateCreditCardProvider($event)"
+                class="option-input"
+              >
+                <option value="">Any Provider</option>
+                <option value="visa">Visa</option>
+                <option value="mastercard">Mastercard</option>
+                <option value="amex">American Express</option>
+                <option value="discover">Discover</option>
+                <option value="dinersclub">Diners Club</option>
+                <option value="jcb">JCB</option>
+                <option value="unionpay">UnionPay</option>
+              </select>
+            </div>
+            
+            <div class="example-cards">
+              <h5>Test Card Numbers</h5>
+              <p class="test-card"><strong>Visa:</strong> 4111111111111111</p>
+              <p class="test-card"><strong>Mastercard:</strong> 5555555555554444</p>
+              <p class="test-card"><strong>Amex:</strong> 378282246310005</p>
+              <p class="test-card"><strong>Discover:</strong> 6011111111111117</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IsLuhnNumber Validator -->
+    <section class="validator-section">
+      <div class="validator-card">
+        <div class="validator-header">
+          <h3>IsLuhnNumber Validator</h3>
+          <span class="validator-badge">Algorithm Validation</span>
+        </div>
+        <p class="validator-description">
+          Validates numbers using the Luhn algorithm (mod-10 checksum). Commonly used for credit cards, IMEI numbers, and other identification numbers that require checksum validation.
+        </p>
+        
+        <div class="demo-grid">
+          <div class="demo-inputs">
+            <div class="input-group">
+              <label for="luhn-number">Number to validate:</label>
+              <input
+                id="luhn-number"
+                type="text"
+                [(ngModel)]="luhnNumber"
+                valIsLuhnNumber
+                #luhnInput="ngModel"
+                placeholder="Enter a number to check..."
+                class="demo-input"
+              />
+              <div class="validation-status">
+                @if (luhnInput.errors?.['isLuhnNumber']) {
+                  <div class="error">❌ Invalid Luhn number</div>
+                } @else if (luhnNumber() && !luhnInput.errors?.['isLuhnNumber']) {
+                  <div class="success">✅ Valid Luhn number!</div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-options">
+            <h4>About Luhn Algorithm</h4>
+            <p class="algorithm-description">
+              The Luhn algorithm is a checksum formula used to validate identification numbers. 
+              It works by doubling every second digit from right to left, then summing all digits.
+              If the total is divisible by 10, the number is valid.
+            </p>
+            
+            <div class="example-numbers">
+              <h5>Test Numbers</h5>
+              <p class="test-number"><strong>Valid:</strong> 79927398713</p>
+              <p class="test-number"><strong>Valid:</strong> 49927398716</p>
+              <p class="test-number"><strong>Invalid:</strong> 79927398714</p>
+              <p class="test-number"><strong>Invalid:</strong> 1234567890123456</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </main>
 

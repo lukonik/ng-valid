@@ -448,3 +448,74 @@ body {
 .validator-section:nth-child(4) .validator-card {
   animation-delay: 0.4s;
 }
+
+.validator-section:nth-child(5) .validator-card {
+  animation-delay: 0.5s;
+}
+
+.validator-section:nth-child(6) .validator-card {
+  animation-delay: 0.6s;
+}
+
+/* Credit Card Demo Styles */
+.example-cards {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--gray-50);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-200);
+}
+
+.example-cards h5 {
+  color: var(--gray-700);
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.test-card {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin: 0.25rem 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.test-card strong {
+  color: var(--gray-700);
+  font-weight: 600;
+}
+
+/* Luhn Number Demo Styles */
+.algorithm-description {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.example-numbers {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--gray-50);
+  border-radius: 0.5rem;
+  border: 1px solid var(--gray-200);
+}
+
+.example-numbers h5 {
+  color: var(--gray-700);
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.test-number {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  margin: 0.25rem 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.test-number strong {
+  color: var(--gray-700);
+  font-weight: 600;
+}
