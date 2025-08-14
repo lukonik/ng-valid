@@ -12,7 +12,7 @@
     "lint": "ng lint",
     "serve:ssr:demo": "node dist/demo/server/server.mjs",
     "deploy":"ng deploy --dir dist/demo/browser",
-    "build:demo": "ng build demo --configuration production",
+    "build:demo": "ng build demo --configuration production"
   },
   "private": true,
   "dependencies": {
