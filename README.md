@@ -1,59 +1,179 @@
-# NgxValid
+<div align="center">
+  <img src="logo.png" alt="ngx-valid" width="200" height="200">
+  
+  # ngx-valid
+  
+  **Modern Angular validation library with TypeScript support**
+  
+  [![npm version](https://badge.fury.io/js/ngx-valid.svg)](https://www.npmjs.com/package/ngx-valid)
+  [![Angular](https://img.shields.io/badge/Angular-20%2B-red?logo=angular)](https://angular.io)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-blue?logo=typescript)](https://www.typescriptlang.org)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  
+</div>
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.6.
+---
 
-## Development server
+## 🚀 Features
 
-To start a local development server, run:
+- ✨ **Modern Angular 20+** - Built with the latest Angular features including signals and standalone components
+- 🎯 **TypeScript First** - Full TypeScript support with strict typing
+- 🔄 **Dual Support** - Works with both reactive and template-driven forms
+- 🧪 **Well Tested** - Comprehensive unit test coverage
+- 📦 **Tree Shakable** - Optimized bundle size with selective imports
+- 🎨 **Validator.js Compatible** - Based on proven validation logic from validator.js
+- ⚡ **Zoneless Ready** - Compatible with Angular's new zoneless change detection
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## 📦 Installation
 
 ```bash
-ng build
+npm install ngx-valid
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🎯 Quick Start
 
-## Running unit tests
+### Reactive Forms
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+```typescript
+import { FormControl, FormGroup } from '@angular/forms';
+import { contains } from 'ngx-valid';
+
+const form = new FormGroup({
+  message: new FormControl('', [
+    contains('hello', { ignoreCase: true })
+  ])
+});
+```
+
+### Template-Driven Forms
+
+```html
+<input 
+  type="text" 
+  name="message" 
+  valContains="hello"
+  [valContainsOptions]="{ ignoreCase: true }"
+  [(ngModel)]="message"
+  #messageInput="ngModel">
+
+<div *ngIf="messageInput.errors?.['contains']">
+  Message must contain "hello"
+</div>
+```
+
+## 📚 Available Validators
+
+### Contains Validator
+
+Validates that a string contains a specific substring.
+
+#### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `ignoreCase` | `boolean` | `false` | Perform case-insensitive search |
+| `minOccurrences` | `number` | `1` | Minimum number of occurrences required |
+
+#### Examples
+
+**Basic Usage:**
+```typescript
+import { contains } from 'ngx-valid';
+
+// Must contain 'test'
+contains('test')
+
+// Case insensitive search
+contains('TEST', { ignoreCase: true })
+
+// Require multiple occurrences
+contains('a', { minOccurrences: 3 })
+```
+
+**Template Directive:**
+```html
+<!-- Basic usage -->
+<input valContains="world" [(ngModel)]="text">
+
+<!-- With options -->
+<input 
+  valContains="hello"
+  [valContainsOptions]="{ ignoreCase: true, minOccurrences: 2 }"
+  [(ngModel)]="text">
+```
+
+## 🛠️ Development
+
+### Prerequisites
+
+- Node.js 18+
+- Angular CLI 20+
+- npm or yarn
+
+### Setup
 
 ```bash
-ng test
+# Clone the repository
+git clone https://github.com/lukonik/ngx-valid.git
+cd ngx-valid
+
+# Install dependencies
+npm install
+
+# Build the library
+npm run build
+
+# Run tests
+npm run test
+
+# Run linting
+npm run lint
 ```
 
-## Running end-to-end tests
+### Project Structure
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+ngx-valid/
+├── projects/ngx-valid/          # Library source code
+│   ├── src/lib/                 # Validators
+│   │   ├── contains/            # Contains validator
+│   │   └── ...                  # Future validators
+│   └── src/public-api.ts        # Public exports
+├── logo.png                     # Project logo
+└── README.md                    # This file
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🤝 Contributing
 
-## Additional Resources
+We welcome contributions! Please see our [contribution guidelines](CONTRIBUTING.md) for details.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Adding New Validators
+
+1. Create a new branch from `main`
+2. Add your validator in `projects/ngx-valid/src/lib/[validator-name]/`
+3. Include both function and directive implementations
+4. Add comprehensive tests
+5. Update documentation
+6. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with [Angular](https://angular.io)
+- Validation logic inspired by [validator.js](https://github.com/validatorjs/validator.js)
+- Generated with [Angular CLI](https://github.com/angular/angular-cli)
+
+## 📞 Support
+
+- 🐛 [Bug Reports](https://github.com/lukonik/ngx-valid/issues)
+- 💡 [Feature Requests](https://github.com/lukonik/ngx-valid/issues)
+- 📖 [Documentation](https://github.com/lukonik/ngx-valid/wiki)
+
+---
+
+<div align="center">
+  Made with ❤️ by the ngx-valid team
+</div>
