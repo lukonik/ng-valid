@@ -4,7 +4,6 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project=docs --no-hmr",
-    "prepare": "husky",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "semantic-release": "semantic-release",
