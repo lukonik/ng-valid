@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, NgForm } from '@angular/forms';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { IsCreditCardDirective } from './is-credit-card.directive';
 
 @Component({
@@ -46,7 +45,7 @@ describe('IsCreditCardDirective', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestComponent],
-      providers: [provideExperimentalZonelessChangeDetection()],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
