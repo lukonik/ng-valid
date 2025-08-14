@@ -3,8 +3,45 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ngx-valid": {
+      "projectType": "library",
+      "root": "projects/ngx-valid",
+      "sourceRoot": "projects/ngx-valid/src",
+      "prefix": "val",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-valid/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-valid/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ngx-valid/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-valid/**/*.ts",
+              "projects/ngx-valid/**/*.html"
+            ],
+            "eslintConfig": "projects/ngx-valid/eslint.config.js"
+          }
+        }
+      }
+    }
   },
   "cli": {
-    "analytics": "87be86f4-36a4-49da-93b4-98bfbcb19d9e"
+    "analytics": "87be86f4-36a4-49da-93b4-98bfbcb19d9e",
+    "schematicCollections": ["angular-eslint"]
   }
 }

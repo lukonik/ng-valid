@@ -3,22 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "overrides": [
-      {
-        "files": "*.html",
-        "options": {
-          "parser": "angular"
-        }
-      }
-    ]
+    "start": "ng serve --project=docs --no-hmr",
+    "prepare": "husky",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "semantic-release": "semantic-release",
+    "build": "ng build --project=ngx-valid",
+    "check": "ng lint && npm run format:check && ng test --no-watch --no-progress --browsers=ChromeHeadless --project=ngx-valid && ng build --project=ngx-valid",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -32,15 +24,21 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular/build": "^20.1.6",
     "@angular/cli": "^20.1.6",
     "@angular/compiler-cli": "^20.1.0",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "20.1.1",
+    "eslint": "^9.29.0",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2"
+    "ng-packagr": "^20.1.0",
+    "prettier": "3.6.2",
+    "typescript": "~5.8.2",
+    "typescript-eslint": "8.34.1"
   }
 }
