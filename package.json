@@ -10,7 +10,8 @@
     "build": "ng build --project=ngx-valid",
     "check": "ng lint && npm run format:check && ng test --no-watch --no-progress --browsers=ChromeHeadless --project=ngx-valid && ng build --project=ngx-valid",
     "lint": "ng lint",
-    "serve:ssr:demo": "node dist/demo/server/server.mjs"
+    "serve:ssr:demo": "node dist/demo/server/server.mjs",
+    "deploy":"ng deploy --dir dist/demo/browser"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +41,7 @@
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
+    "angular-cli-ghpages": "^2.0.3",
     "angular-eslint": "20.1.1",
     "eslint": "^9.29.0",
     "jasmine-core": "~5.8.0",
