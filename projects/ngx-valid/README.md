@@ -64,6 +64,7 @@ const form = new FormGroup({
 
 - [Contains](#contains-validator) - Validates that a string contains a specific substring
 - [Equals](#equals-validator) - Validates that a string exactly equals a specific value
+- [IsAfter](#isafter-validator) - Validates that a date is after a specific comparison date
 
 ### Contains Validator
 
@@ -158,6 +159,71 @@ const form = new FormGroup({
 form
   .get('confirmPassword')
   ?.setValidators([equals(form.get('password')?.value || '')]);
+```
+
+### IsAfter Validator
+
+Validates that a date is after a specific comparison date.
+
+#### Options
+
+| Option           | Type             | Default      | Description                 |
+| ---------------- | ---------------- | ------------ | --------------------------- |
+| `comparisonDate` | `string \| Date` | `new Date()` | The date to compare against |
+
+#### Examples
+
+**Basic Usage:**
+
+```typescript
+import { isAfter } from 'ngx-valid';
+
+// Must be after current date/time
+isAfter();
+
+// Must be after specific date
+isAfter({ comparisonDate: '2024-01-01' });
+
+// Must be after specific date object
+isAfter({ comparisonDate: new Date('2024-01-01') });
+```
+
+**Template Directive:**
+
+```html
+<!-- Must be after current date -->
+<input type="date" valIsAfter [(ngModel)]="selectedDate" />
+
+<!-- Must be after specific date -->
+<input type="date" valIsAfter="2024-01-01" [(ngModel)]="selectedDate" />
+
+<!-- Must be after another form field -->
+<input type="date" [(ngModel)]="startDate" #start="ngModel" />
+<input
+  type="date"
+  [valIsAfter]="start.value"
+  [(ngModel)]="endDate"
+  #end="ngModel"
+/>
+
+<div *ngIf="end.errors?.['isAfter']">End date must be after start date</div>
+```
+
+**Reactive Forms Example:**
+
+```typescript
+import { FormControl, FormGroup } from '@angular/forms';
+import { isAfter } from 'ngx-valid';
+
+const form = new FormGroup({
+  startDate: new FormControl(''),
+  endDate: new FormControl(''),
+});
+
+// Dynamic date validation
+form
+  .get('endDate')
+  ?.setValidators([isAfter({ comparisonDate: form.get('startDate')?.value })]);
 ```
 
 ## 🛠️ Development
